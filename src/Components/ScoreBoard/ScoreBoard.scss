@@ -1,0 +1,27 @@
+.scoreboard-wrapper {
+    position: relative;
+    width: 100%;
+    justify-self: center;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    .scoreboard {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    
+        .playerX-score,
+        .playerO-score {
+            display: flex;
+            align-items: center;
+        }
+    
+        .X, .O {
+            aspect-ratio: 1/1;
+            height: 50px;
+            width: 50px;
+            margin: 0.5rem 1rem 0.5rem 0;
+        }
+    }
+}

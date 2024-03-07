@@ -1,0 +1,144 @@
+.game-wrapper {
+   grid-area: game;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 100vw;
+}
+
+.board__container {
+   aspect-ratio: 1/1;
+   position: relative;
+   min-height: 100px;
+   width: 60%;
+   min-width: 100px;
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   grid-template-rows: repeat(3, 1fr);
+   padding: 1rem;
+
+   &.has-winner::before {
+      // make the board not clickable by placing a transparent element
+      content: "";
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      background: transparent;
+      z-index: 2;
+   }
+
+   &.has-winner::after {
+      content: "";
+      position: absolute;
+      border-radius: 99px;
+      background-color: red;
+   }
+
+   &.win-0::after {
+      top: 14.16%;
+      left: 5%;
+      height: 5%;
+      width: 90%;
+   }
+   &.win-1::after {
+      top: 47.49%;
+      left: 5%;
+      height: 5%;
+      width: 90%;
+   }
+   &.win-2::after {
+      top: 80.83%;
+      left: 5%;
+      height: 5%;
+      width: 90%;
+   }
+   &.win-3::after {
+      top: 5%;
+      left: 14.16%;
+      width: 5%;
+      height: 90%;
+   }
+   &.win-4::after {
+      top: 5%;
+      left: 47.49%;
+      width: 5%;
+      height: 90%;
+   }
+   &.win-5::after {
+      top: 5%;
+      left: 80.83%;
+      width: 5%;
+      height: 90%;
+   }
+   &.win-6::after {
+      width: 5%;
+      height: 120%;
+      left: 50%;
+      top: -12%;
+      transform: rotate(45deg);
+   }
+   &.win-7::after {
+      width: 5%;
+      height: 120%;
+      left: 50%;
+      top: -8%;
+      transform: rotate(135deg);
+   }
+}
+
+[id="minigame-00"],
+[id$="cell-00"] {
+   border-bottom: 2px solid black;
+   border-right: 2px solid black;
+}
+
+[id="minigame-01"],
+[id$="cell-01"] {
+   border-bottom: 2px solid black;
+   border-left: 2px solid black;
+   border-right: 2px solid black;
+}
+
+[id="minigame-02"],
+[id$="cell-02"] {
+   border-bottom: 2px solid black;
+   border-left: 2px solid black;
+}
+
+[id="minigame-10"],
+[id$="cell-10"] {
+   border-top: 2px solid black;
+   border-bottom: 2px solid black;
+   border-right: 2px solid black;
+}
+
+[id="minigame-11"],
+[id$="cell-11"] {
+   border: 2px solid black;
+}
+
+[id="minigame-12"],
+[id$="cell-12"] {
+   border-top: 2px solid black;
+   border-bottom: 2px solid black;
+   border-left: 2px solid black;
+}
+
+[id="minigame-20"],
+[id$="cell-20"] {
+   border-top: 2px solid black;
+   border-right: 2px solid black;
+}
+
+[id="minigame-21"],
+[id$="cell-21"] {
+   border-top: 2px solid black;
+   border-left: 2px solid black;
+   border-right: 2px solid black;
+}
+
+[id="minigame-22"],
+[id$="cell-22"] {
+   border-top: 2px solid black;
+   border-left: 2px solid black;
+}

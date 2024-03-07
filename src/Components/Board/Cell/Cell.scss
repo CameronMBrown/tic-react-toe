@@ -1,0 +1,17 @@
+.cell {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 5%;
+
+   &:has(.X),
+   &:has(.O) {
+      padding: 0;
+   }
+
+   .X, .O {
+      height: 95%;
+      width: 95%;
+      padding: 5%;
+   }
+}
