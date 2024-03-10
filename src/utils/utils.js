@@ -1,4 +1,25 @@
-import { WINS } from "./constants"
+import { DEFAULT_GAME_DATA, WINS } from "./constants"
+
+/**
+ * Attempts to load a previous game using localStorage. If no saved game is
+ * found, returns the default game data
+ *
+ * @returns {board, player, nextValidMove, resolvedMiniGames}
+ */
+export function loadSavedGame() {
+  const saveGameData = JSON.parse(localStorage.getItem("gamestate"))
+  if (saveGameData) {
+    console.log(saveGameData.board)
+    return {
+      board: JSON.parse(saveGameData.board),
+      player: saveGameData.player,
+      nextValidMove: JSON.parse(saveGameData.nextValidMove),
+      resolvedMiniGames: JSON.parse(saveGameData.resolvedMiniGames), // TODO: resole this state
+    }
+  } else {
+    return DEFAULT_GAME_DATA
+  }
+}
 
 /**
  * Expects the game board or a minigame and the current player. Returns true if a winning

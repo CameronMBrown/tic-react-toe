@@ -21,6 +21,7 @@ function PlayerArea({ symbol, initialName, isTurn }) {
     }
   }, [isEditing])
 
+  // get previously saved player name
   useEffect(() => {
     let loadedName = localStorage.getItem(initialName)
     if (loadedName) {
@@ -28,9 +29,16 @@ function PlayerArea({ symbol, initialName, isTurn }) {
     }
   }, [initialName])
 
-  function handleChangeName(e) {
+  const handleChangeName = (e) => {
     setName(e.target.value)
     localStorage.setItem(initialName, e.target.value)
+  }
+
+  const handleFinishEditing = () => {
+    setIsEditing(false)
+    if (name === "") {
+      setName(initialName)
+    }
   }
 
   let nameContent = (
@@ -46,11 +54,9 @@ function PlayerArea({ symbol, initialName, isTurn }) {
         type="text"
         className="player-name"
         value={name}
-        onBlur={() => {
-          setIsEditing(false)
-        }}
+        onBlur={handleFinishEditing}
         onKeyUp={(e) => {
-          e.key === "Enter" && setIsEditing(false)
+          e.key === "Enter" && handleFinishEditing()
         }}
         onChange={handleChangeName}
       />

@@ -13,12 +13,8 @@ import Modal from "../../UI/Modal/Modal"
 // styles
 import "./SettingsModal.scss"
 
-// settings configuration
-import { DEFAULT_GAME_SETTINGS } from "../../../utils/constants"
-
 export default function SettingsModal({ onChangeSettings }) {
   const [showSettings, setShowSettings] = useState(false)
-  const [settings, setSettings] = useState(DEFAULT_GAME_SETTINGS)
   const settingsCtx = useContext(SettingsContext)
 
   const showSettingsModal = () => {
