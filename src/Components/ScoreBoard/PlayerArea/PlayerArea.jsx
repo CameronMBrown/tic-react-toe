@@ -1,4 +1,7 @@
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, useContext } from "react"
+
+// context
+import GameStateContext from "../../../store/GameStateContext"
 
 // components
 import XSymbol from "../../Symbols/XSymbol"
@@ -10,7 +13,13 @@ import "./PlayerArea.scss"
 function PlayerArea({ symbol, initialName, isTurn }) {
   const [name, setName] = useState(initialName)
   const [isEditing, setIsEditing] = useState(false)
+  const gameCtx = useContext(GameStateContext)
   const input = useRef()
+  const classes = ["player-area"]
+
+  if (isTurn) classes.push("your-turn")
+
+  if (gameCtx.win && !isTurn) classes.push("winner")
 
   // give immediate focus to name input when clicked
   useEffect(() => {
@@ -64,7 +73,7 @@ function PlayerArea({ symbol, initialName, isTurn }) {
   }
 
   return (
-    <div className={`player-area ${isTurn ? "your-turn" : ""}`}>
+    <div className={classes.join(" ")}>
       {symbol === "X" ? <XSymbol /> : <OSymbol />}
       {nameContent}
     </div>

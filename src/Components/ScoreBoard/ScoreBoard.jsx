@@ -7,12 +7,8 @@ import GameStateContext from "../../store/GameStateContext"
 import "./ScoreBoard.scss"
 import PlayerArea from "./PlayerArea/PlayerArea"
 
-export default function ScoreBoard({ score }) {
+export default function ScoreBoard() {
   const gameCtx = useContext(GameStateContext)
-  let totalX = 0
-  let totalO = 0
-  score.X.forEach((num) => (totalX += num))
-  score.O.forEach((num) => (totalO += num))
 
   return (
     <div className="scoreboard-wrapper">

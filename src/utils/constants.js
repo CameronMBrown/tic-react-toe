@@ -103,10 +103,12 @@ export const NEW_MINIGAMES = [
 ]
 
 export const DEFAULT_GAME_DATA = {
+  underway: false,
   board: [...NEW_GAME],
   player: "X",
   nextValidMove: "all",
   resolvedMiniGames: [...NEW_MINIGAMES],
+  win: false,
 }
 
 export const BASIC_WIN_CASE = [

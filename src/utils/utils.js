@@ -1,4 +1,4 @@
-import { DEFAULT_GAME_DATA, WINS } from "./constants"
+import { DEFAULT_GAME_DATA, NEW_MINIGAMES, WINS } from "./constants"
 
 /**
  * Attempts to load a previous game using localStorage. If no saved game is
@@ -6,18 +6,19 @@ import { DEFAULT_GAME_DATA, WINS } from "./constants"
  *
  * @returns {board, player, nextValidMove, resolvedMiniGames}
  */
-export function loadSavedGame() {
+export function loadSavedGame(fallback = DEFAULT_GAME_DATA) {
   const saveGameData = JSON.parse(localStorage.getItem("gamestate"))
   if (saveGameData) {
-    console.log(saveGameData.board)
+    console.log(printGameState(JSON.parse(saveGameData.board))) //debug
     return {
       board: JSON.parse(saveGameData.board),
       player: saveGameData.player,
       nextValidMove: JSON.parse(saveGameData.nextValidMove),
-      resolvedMiniGames: JSON.parse(saveGameData.resolvedMiniGames), // TODO: resole this state
+      resolvedMiniGames: resolveMiniGames(JSON.parse(saveGameData.board)),
+      win: saveGameData.win,
     }
   } else {
-    return DEFAULT_GAME_DATA
+    return fallback
   }
 }
 
@@ -39,7 +40,9 @@ export function checkForWin(game, player) {
         checkForWin(game[arrangement[2].x][arrangement[2].y], player)
       ) {
         console.log(`${player} is the Winner!`)
-        return WINS.indexOf(arrangement)
+        console.log(WINS.indexOf(arrangement) + 1)
+        // add 1 so even a 0 index as evaluates as truthy
+        return WINS.indexOf(arrangement) + 1
       }
     }
   } else {
@@ -50,7 +53,7 @@ export function checkForWin(game, player) {
         game[arrangement[1].x][arrangement[1].y] === player &&
         game[arrangement[2].x][arrangement[2].y] === player
       ) {
-        return true
+        return WINS.indexOf(arrangement) + 1
       }
     }
   }
@@ -72,6 +75,36 @@ export function isCatsGame(miniGame) {
   }
 
   return true
+}
+
+/**
+ * Given the game state, derives all resolved minigames
+ *
+ * @param {Array} board
+ * @returns an Array of resolved minigames
+ */
+export function resolveMiniGames(board) {
+  let resolvedMiniGames = [...NEW_MINIGAMES]
+
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board[i].length; j++) {
+      if (checkForWin(board[i][j], "X")) {
+        resolvedMiniGames[i][j] = {
+          winner: "X",
+          arrangement: WINS[checkForWin(board[i][j], "X") - 1],
+        }
+      } else if (checkForWin(board[i][j], "O")) {
+        resolvedMiniGames[i][j] = {
+          winner: "O",
+          arrangement: WINS[checkForWin(board[i][j], "O") - 1],
+        }
+      } else if (isCatsGame(board[i][j])) {
+        resolvedMiniGames[i][j] = { winner: "tie", arrangement: null }
+      }
+    }
+  }
+
+  return resolvedMiniGames
 }
 
 export function printGameState(gameState) {

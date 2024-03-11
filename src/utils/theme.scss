@@ -40,6 +40,78 @@ $screen-xl-min: 1200px;
   }
 }
 
+@mixin placeToken {
+  animation: placement 0.15s linear 1;
+
+  @keyframes placement {
+    0% {
+      opacity: 0.5;
+      transform: scale(2);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
+@mixin placeTokenLong {
+  animation: placement 0.3s linear 1;
+
+  @keyframes placement {
+    0% {
+      opacity: 0.5;
+      transform: scale(2);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
+@mixin rainbowShadow {
+  filter: drop-shadow(0.5rem 0.5rem 0.5rem #fb0094)
+    drop-shadow(0.5rem -0.5rem 0.5rem #0000ff)
+    drop-shadow(-0.5rem 0.5rem 0.5rem #00ff00)
+    drop-shadow(-0.5rem -0.5rem 0.5rem #ffff00);
+  animation: movingRainbow 3s linear infinite;
+  animation-delay: 0.2s;
+
+  @keyframes movingRainbow {
+    0% {
+      filter: drop-shadow(0.5rem -0.5rem 0.5rem #fb0094)
+        drop-shadow(-0.5rem 0.5rem 0.5rem #0000ff)
+        drop-shadow(-0.5rem -0.5rem 0.5rem #00ff00)
+        drop-shadow(0.5rem 0.5rem 0.5rem #ffff00);
+    }
+    25% {
+      filter: drop-shadow(-0.5rem 0.5rem 0.5rem #fb0094)
+        drop-shadow(-0.5rem -0.5rem 0.5rem #0000ff)
+        drop-shadow(0.5rem 0.5rem 0.5rem #00ff00)
+        drop-shadow(0.5rem -0.5rem 0.5rem #ffff00);
+    }
+    50% {
+      filter: drop-shadow(-0.5rem -0.5rem 0.5rem #fb0094)
+        drop-shadow(0.5rem 0.5rem 0.5rem #0000ff)
+        drop-shadow(0.5rem -0.5rem 0.5rem #00ff00)
+        drop-shadow(-0.5rem 0.5rem 0.5rem #ffff00);
+    }
+    75% {
+      filter: drop-shadow(0.5rem 0.5rem 0.5rem #fb0094)
+        drop-shadow(0.5rem -0.5rem 0.5rem #0000ff)
+        drop-shadow(-0.5rem 0.5rem 0.5rem #00ff00)
+        drop-shadow(-0.5rem -0.5rem 0.5rem #ffff00);
+    }
+    100% {
+      filter: drop-shadow(0.5rem -0.5rem 0.5rem #fb0094)
+        drop-shadow(-0.5rem 0.5rem 0.5rem #0000ff)
+        drop-shadow(-0.5rem -0.5rem 0.5rem #00ff00)
+        drop-shadow(0.5rem 0.5rem 0.5rem #ffff00);
+    }
+  }
+}
+
 @mixin grey-overlay {
   background: rgba(#000000, 0.4);
 

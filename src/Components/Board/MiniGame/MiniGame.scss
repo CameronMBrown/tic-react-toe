@@ -1,35 +1,68 @@
 @import "../../../utils/theme.scss";
 
-.minigame-container {
-  display: grid;
+.minigame {
   position: relative;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  padding: 5%;
+  min-width: 33%;
 
-  &.has-tie,
-  &.invalid-move {
-    @include grey-overlay;
+  .minigame-container {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    position: relative;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    padding: 5%;
+  }
+
+  &:not(:has(.big-token)) {
+    &.has-tie,
+    &.invalid-move {
+      @include grey-overlay;
+
+      &:after {
+        top: 0;
+      }
+    }
   }
 
   &:has(.big-token) {
     padding: 0;
+    display: flex;
+    position: relative;
     align-items: center;
     justify-content: center;
+
+    &.involved-in-win .big-token svg {
+      @include rainbowShadow;
+    }
+
+    &:hover .minigame-container {
+      opacity: 0.5;
+    }
   }
 }
 
 .big-token {
-  grid-column: 1/4;
-  grid-row: 1/4;
+  width: 100%;
   display: flex;
+  position: absolute;
   align-items: center;
   justify-content: center;
   aspect-ratio: 1/1;
   padding: 5%;
+  background-color: #fff;
+  opacity: 1;
+  transition: opacity 0.3s;
 
-  .X,
-  .O {
+  &:hover {
+    opacity: 0;
+  }
+
+  svg {
     height: 90%;
+
+    &.animate {
+      @include placeTokenLong;
+    }
   }
 }

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 
 // context
 import GameStateContext from "../../store/GameStateContext"
@@ -12,8 +12,16 @@ import "./Game.scss"
 export default function Game() {
   const gameCtx = useContext(GameStateContext)
 
-  // TODO: add classes for winning situations
+  useEffect(() => {
+    // let timer = setTimeout()
+  }, [gameCtx.underway])
+
+  // add classes depending on winning configuration
   let classes = ["board__container"]
+  if (gameCtx.win) {
+    classes.push("has-winner")
+    classes.push(`win-${gameCtx.win - 1}`)
+  }
 
   return (
     <div className="game-wrapper">

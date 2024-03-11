@@ -16,8 +16,6 @@ function Modal({ children, open, className = "", onClose }) {
     return () => modal.close()
   }, [open])
 
-  console.log(open)
-
   return createPortal(
     <dialog ref={dialog} className={`modal ${className}`} onClose={onClose}>
       {children}
