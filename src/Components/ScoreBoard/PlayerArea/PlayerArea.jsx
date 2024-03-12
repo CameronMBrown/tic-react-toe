@@ -10,12 +10,54 @@ import OSymbol from "../../Symbols/OSymbol"
 // styles
 import "./PlayerArea.scss"
 
+const TICK_RATE = 100
+// TODO: get move timer from settings context
+const timeout = 5000
+
 function PlayerArea({ symbol, initialName, isTurn }) {
   const [name, setName] = useState(initialName)
   const [isEditing, setIsEditing] = useState(false)
   const gameCtx = useContext(GameStateContext)
   const input = useRef()
   const classes = ["player-area"]
+
+  const [remainingMoveTime, setRemainingMoveTime] = useState(timeout)
+
+  // move timer
+  useEffect(() => {
+    let timer
+    if (gameCtx.player === symbol) {
+      setRemainingMoveTime(timeout)
+      timer = setTimeout(() => {
+        if (gameCtx.underway) {
+          // if the player does not make a move before the end of the timer,
+          // the consequence is a randomly made valid move
+          gameCtx.autoMove()
+        }
+      }, timeout)
+    }
+
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [gameCtx.player, gameCtx.underway, symbol])
+
+  // update timer visual indicator
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRemainingMoveTime((prev) => {
+        if (gameCtx.underway) {
+          return prev - TICK_RATE
+        } else {
+          return prev
+        }
+      })
+    }, TICK_RATE)
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [gameCtx.underway])
 
   if (isTurn) classes.push("your-turn")
 
@@ -74,6 +116,14 @@ function PlayerArea({ symbol, initialName, isTurn }) {
 
   return (
     <div className={classes.join(" ")}>
+      {gameCtx.player === symbol && gameCtx.underway && (
+        <progress
+          id="move-timer"
+          className="move-timer"
+          max={timeout}
+          value={remainingMoveTime}
+        />
+      )}
       {symbol === "X" ? <XSymbol /> : <OSymbol />}
       {nameContent}
     </div>

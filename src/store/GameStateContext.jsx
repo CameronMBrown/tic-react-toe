@@ -12,13 +12,16 @@ import { checkForWin, isCatsGame, loadSavedGame } from "../utils/utils"
 
 const GameStateContext = createContext({
   underway: true,
-  board: [...NEW_GAME],
+  board: structuredClone(NEW_GAME),
   player: "X",
   nextValidMove: "all",
-  resolvedMiniGames: [...NEW_MINIGAMES],
+  resolvedMiniGames: structuredClone(NEW_MINIGAMES),
   win: false,
   insert: (bigX, bigY, miniX, miniY) => {},
+  autoMove: () => {},
   clear: () => {},
+  pause: () => {},
+  unpause: () => {},
 })
 
 function gameReducer(state, action) {
@@ -26,13 +29,19 @@ function gameReducer(state, action) {
     localStorage.removeItem("gamestate")
     return {
       ...state,
-      ...DEFAULT_GAME_DATA,
+      underway: false,
+      board: structuredClone(NEW_GAME),
+      player: "X",
+      nextValidMove: "all",
+      resolvedMiniGames: structuredClone(NEW_MINIGAMES),
+      win: false,
     }
   } else if (action.type === "INSERT") {
     const { bigX, bigY, miniX, miniY } = action.move
-    let nextValidMove = "all"
-    const player = state.player === "X" ? "O" : "X"
+    let underway = true
     const newGameState = [...state.board]
+    const player = state.player === "X" ? "O" : "X"
+    let nextValidMove = "all"
     const resolvedMiniGames = [...state.resolvedMiniGames]
     let win = state.win
 
@@ -60,6 +69,7 @@ function gameReducer(state, action) {
     if (win) {
       // TODO: handle win
       nextValidMove = "all"
+      underway = false
       console.log("WINNER!!!")
     }
 
@@ -67,7 +77,7 @@ function gameReducer(state, action) {
     localStorage.setItem(
       "gamestate",
       JSON.stringify({
-        board: JSON.stringify([...BASIC_WIN_CASE]),
+        board: JSON.stringify(newGameState),
         player,
         nextValidMove: JSON.stringify(nextValidMove),
         resolvedMiniGames: JSON.stringify(resolvedMiniGames),
@@ -77,11 +87,22 @@ function gameReducer(state, action) {
 
     return {
       ...state,
+      underway,
       board: newGameState,
       player,
       nextValidMove,
       resolvedMiniGames,
       win,
+    }
+  } else if (action.type === "PAUSE") {
+    return {
+      ...state,
+      underway: false,
+    }
+  } else if (action.type === "UNPAUSE") {
+    return {
+      ...state,
+      underway: true,
     }
   }
 }
@@ -90,7 +111,7 @@ export function GameStateContextProvider({ children }) {
   // restore previous game if found
   let { board, player, nextValidMove, resolvedMiniGames, win } = loadSavedGame()
   const [game, dispatchGameAction] = useReducer(gameReducer, {
-    underway: true, // TODO: play/pause game states. Modals cause pause, page does not load an underway game
+    underway: false, // TODO: play/pause game states. Modals cause pause, page does not load an underway game
     board,
     player,
     nextValidMove,
@@ -106,15 +127,69 @@ export function GameStateContextProvider({ children }) {
     resolvedMiniGames: game.resolvedMiniGames,
     win: game.win,
     insert,
+    autoMove,
     clear,
+    pause,
+    unpause,
   }
 
   function insert(bigX, bigY, miniX, miniY) {
     dispatchGameAction({ type: "INSERT", move: { bigX, bigY, miniX, miniY } })
   }
 
+  /**
+   * get all possible valid moves, and choose a random move
+   */
+  function autoMove() {
+    let bigX, bigY, miniX, miniY
+
+    // choose the minigame
+    if (gameContext.nextValidMove !== "all") {
+      ;[bigX, bigY] = gameContext.nextValidMove
+    } else {
+      // board is open, playable minigames are the ones not resolved
+      let validGameIndexes = []
+      for (let i = 0; i < gameContext.resolvedMiniGames.length; i++) {
+        for (let j = 0; j < gameContext.resolvedMiniGames[i].length; j++) {
+          if (!gameContext.resolvedMiniGames[i][j]) {
+            validGameIndexes.push([i, j])
+          }
+        }
+      }
+
+      // chose random valid minigame
+      ;[bigX, bigY] =
+        validGameIndexes[Math.floor(Math.random() * validGameIndexes.length)]
+    }
+
+    // choose a random cell given the minigame
+    let validCellIndexes = []
+    for (let i = 0; i < gameContext.board[bigX][bigY].length; i++) {
+      for (let j = 0; j < gameContext.board[bigX][bigY][i].length; j++) {
+        if (gameContext.board[bigX][bigY][i][j] === " ") {
+          validCellIndexes.push([i, j])
+        }
+      }
+    }
+    ;[miniX, miniY] =
+      validCellIndexes[Math.floor(Math.random() * validCellIndexes.length)]
+
+    console.log(`auto move - ${bigX}, ${bigY}, ${miniX}, ${miniY}`)
+
+    // do an insert with the randomly selected coordinates
+    dispatchGameAction({ type: "INSERT", move: { bigX, bigY, miniX, miniY } })
+  }
+
   function clear() {
     dispatchGameAction({ type: "CLEAR" })
+  }
+
+  function pause() {
+    dispatchGameAction({ type: "PAUSE" })
+  }
+
+  function unpause() {
+    dispatchGameAction({ type: "UNPAUSE" })
   }
 
   return (

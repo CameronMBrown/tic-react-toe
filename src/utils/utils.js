@@ -1,4 +1,4 @@
-import { DEFAULT_GAME_DATA, NEW_MINIGAMES, WINS } from "./constants"
+import { DEFAULT_GAME_DATA, NEW_GAME, NEW_MINIGAMES, WINS } from "./constants"
 
 /**
  * Attempts to load a previous game using localStorage. If no saved game is
@@ -6,10 +6,11 @@ import { DEFAULT_GAME_DATA, NEW_MINIGAMES, WINS } from "./constants"
  *
  * @returns {board, player, nextValidMove, resolvedMiniGames}
  */
-export function loadSavedGame(fallback = DEFAULT_GAME_DATA) {
+export function loadSavedGame(fallback = structuredClone(DEFAULT_GAME_DATA)) {
   const saveGameData = JSON.parse(localStorage.getItem("gamestate"))
   if (saveGameData) {
-    console.log(printGameState(JSON.parse(saveGameData.board))) //debug
+    console.log("restoring saved game")
+    // console.log(printGameState(JSON.parse(saveGameData.board))) //debug
     return {
       board: JSON.parse(saveGameData.board),
       player: saveGameData.player,
@@ -23,8 +24,8 @@ export function loadSavedGame(fallback = DEFAULT_GAME_DATA) {
 }
 
 /**
- * Expects the game board or a minigame and the current player. Returns true if a winning
- * configuration for the curent player is found.
+ * Expects the game board or a minigame and the current player. Returns the index of the
+ * winning configuration for the curent player if it is found, otherwise false.
  *
  * @param {Array} game
  * @param {String} player
@@ -84,7 +85,7 @@ export function isCatsGame(miniGame) {
  * @returns an Array of resolved minigames
  */
 export function resolveMiniGames(board) {
-  let resolvedMiniGames = [...NEW_MINIGAMES]
+  let resolvedMiniGames = structuredClone(NEW_MINIGAMES)
 
   for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board[i].length; j++) {

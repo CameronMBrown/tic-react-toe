@@ -12,7 +12,7 @@ const XSymbol = ({ fill = "#000000", classes = [] }) => {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 460.775 460.775"
       stroke="#000000"
-      strokeWidth="0.48"
+      strokeWidth="5"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g

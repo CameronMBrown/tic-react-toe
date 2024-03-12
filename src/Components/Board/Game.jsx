@@ -1,20 +1,17 @@
-import React, { useContext, useEffect, useState } from "react"
+import { useContext, useEffect } from "react"
 
 // context
 import GameStateContext from "../../store/GameStateContext"
 
 // components
 import MiniGame from "./MiniGame/MiniGame"
+import PausedGameModal from "../UI/PausedGameModal/PausedGameModal"
 
 // styles
 import "./Game.scss"
 
 export default function Game() {
   const gameCtx = useContext(GameStateContext)
-
-  useEffect(() => {
-    // let timer = setTimeout()
-  }, [gameCtx.underway])
 
   // add classes depending on winning configuration
   let classes = ["board__container"]
@@ -25,6 +22,8 @@ export default function Game() {
 
   return (
     <div className="game-wrapper">
+      {/* pause game on page load, show a modal for unpause */}
+      <PausedGameModal />
       <div className={classes.join(" ")}>
         {gameCtx.board.map((row, i) => {
           return gameCtx.board[i].map((minigame, j) => {

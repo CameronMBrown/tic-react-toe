@@ -1,0 +1,25 @@
+.paused-modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 4rem;
+
+  h3 {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+  }
+
+  .play-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+      aspect-ratio: 1/1;
+      height: 2rem;
+      margin-left: -0.5rem;
+    }
+  }
+}

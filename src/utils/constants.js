@@ -1,3 +1,12 @@
+/*
+Useful project constants
+
+Remember, most of these constants are multi-dimentional arrays, so you likely need to use the structuredClone
+method to avoid assigning new values to the constants.
+
+ex. board: structuredClone(NEW_GAME)
+*/
+
 export const WINS = [
   [
     { x: 0, y: 0 },
@@ -104,10 +113,10 @@ export const NEW_MINIGAMES = [
 
 export const DEFAULT_GAME_DATA = {
   underway: false,
-  board: [...NEW_GAME],
+  board: structuredClone(NEW_GAME),
   player: "X",
   nextValidMove: "all",
-  resolvedMiniGames: [...NEW_MINIGAMES],
+  resolvedMiniGames: structuredClone(NEW_MINIGAMES),
   win: false,
 }
 

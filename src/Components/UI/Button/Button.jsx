@@ -1,10 +1,14 @@
-export default function Button( props ) {
-    const { classes, action } = props
+import "./Button.scss"
 
-    return (
-        <button className={"btn " + classes.join(" ")}
-            onClick={action}>
-            { props.children }
-        </button>
-    )
+export default function Button({ className = "", action, children }) {
+  const handleClick = (e) => {
+    e.preventDefault(e)
+    action()
+  }
+
+  return (
+    <button className={`btn ${className}`} onClick={handleClick}>
+      {children}
+    </button>
+  )
 }

@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react"
 
 // context
 import SettingsContext from "../../../store/SettingsContext"
+import GameStateContext from "../../../store/GameStateContext"
 
 // components
 import Setting from "./Setting/Setting"
@@ -16,16 +17,27 @@ import "./SettingsModal.scss"
 export default function SettingsModal({ onChangeSettings }) {
   const [showSettings, setShowSettings] = useState(false)
   const settingsCtx = useContext(SettingsContext)
+  const gameCtx = useContext(GameStateContext)
 
   const showSettingsModal = () => {
-    // console.log(showSettings)
     if (showSettings) return
+
     setShowSettings(true)
+    gameCtx.pause()
   }
 
   const closeSettingsModal = () => {
     if (!showSettings) return
-    else setShowSettings(false)
+    else {
+      setShowSettings(false)
+      gameCtx.underway = true
+    }
+  }
+
+  const handleResetGame = () => {
+    // TODO: confirm reset game modal
+    setShowSettings(false)
+    gameCtx.clear()
   }
 
   // TODO: handle some settings need game reset
@@ -69,6 +81,7 @@ export default function SettingsModal({ onChangeSettings }) {
               }}
             />
             <input type="submit" value="Save" />
+            <Button action={handleResetGame}>Reset Game</Button>
           </form>
         </Modal>
       )}

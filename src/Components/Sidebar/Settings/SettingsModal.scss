@@ -15,17 +15,6 @@
 }
 
 .settings-modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 65%;
-  padding: 1rem;
-  border: 1px solid black;
-  border-radius: 2rem;
-  background-color: #ffffff;
-  z-index: 5;
-
   .close-btn {
     display: flex;
     align-items: center;

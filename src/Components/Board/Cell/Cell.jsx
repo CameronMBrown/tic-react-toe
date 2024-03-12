@@ -3,9 +3,6 @@ import { useContext } from "react"
 // context
 import GameStateContext from "../../../store/GameStateContext"
 
-// util
-import { WINS } from "../../../utils/constants"
-
 // components
 import XSymbol from "../../Symbols/XSymbol"
 import OSymbol from "../../Symbols/OSymbol"
@@ -25,7 +22,7 @@ export default function Cell({ cellID, parentX, parentY }) {
 
   // turn gold if involved in minigame win
   const miniGameStatus = gameCtx.resolvedMiniGames[parentX][parentY]
-  if (miniGameStatus) {
+  if (miniGameStatus.arrangement) {
     for (const arrangement of miniGameStatus.arrangement) {
       if (arrangement.x === Xpos && arrangement.y === Ypos) {
         cellFill = "#FFD700"
