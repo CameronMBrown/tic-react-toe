@@ -3,12 +3,17 @@ import { createContext, useReducer } from "react"
 // util
 import {
   WINS,
-  DEFAULT_GAME_DATA,
-  BASIC_WIN_CASE,
+  // DEFAULT_GAME_DATA,
+  // BASIC_WIN_CASE,
   NEW_GAME,
   NEW_MINIGAMES,
 } from "../utils/constants"
-import { checkForWin, isCatsGame, loadSavedGame } from "../utils/utils"
+import {
+  checkForWin,
+  isCatsGame,
+  isGameFinished,
+  loadSavedGame,
+} from "../utils/utils"
 
 const GameStateContext = createContext({
   underway: true,
@@ -17,6 +22,8 @@ const GameStateContext = createContext({
   nextValidMove: "all",
   resolvedMiniGames: structuredClone(NEW_MINIGAMES),
   win: false,
+  player1Score: 0,
+  player2Score: 0,
   insert: (bigX, bigY, miniX, miniY) => {},
   autoMove: () => {},
   clear: () => {},
@@ -44,6 +51,8 @@ function gameReducer(state, action) {
     let nextValidMove = "all"
     const resolvedMiniGames = [...state.resolvedMiniGames]
     let win = state.win
+    let player1Score = state.player1Score
+    let player2Score = state.player2Score
 
     // update game state
     newGameState[bigX][bigY][miniX][miniY] = state.player
@@ -67,10 +76,15 @@ function gameReducer(state, action) {
     // check for overall win
     win = checkForWin(newGameState, state.player)
     if (win) {
-      // TODO: handle win
       nextValidMove = "all"
       underway = false
       console.log("WINNER!!!")
+    }
+
+    // check for finished game by no moves left
+    if (isGameFinished(resolvedMiniGames)) {
+      // TODO: handle endgame
+      underway = false
     }
 
     // save gamestate to localStorage
@@ -120,6 +134,8 @@ export function GameStateContextProvider({ children }) {
     nextValidMove: game.nextValidMove,
     resolvedMiniGames: game.resolvedMiniGames,
     win: game.win,
+    player1Score: game.player1Score,
+    player2Score: game.player2Score,
     insert,
     autoMove,
     clear,

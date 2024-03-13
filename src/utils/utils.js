@@ -1,4 +1,4 @@
-import { DEFAULT_GAME_DATA, NEW_GAME, NEW_MINIGAMES, WINS } from "./constants"
+import { DEFAULT_GAME_DATA, NEW_MINIGAMES, WINS } from "./constants"
 
 /**
  * Attempts to load a previous game using localStorage. If no saved game is
@@ -16,6 +16,8 @@ export function loadSavedGame(fallback = structuredClone(DEFAULT_GAME_DATA)) {
       nextValidMove: JSON.parse(saveGameData.nextValidMove),
       resolvedMiniGames: resolveMiniGames(JSON.parse(saveGameData.board)),
       win: saveGameData.win,
+      player1Score: saveGameData.player1Score,
+      player2Score: saveGameData.player2Score,
     }
   } else {
     return fallback
@@ -105,6 +107,23 @@ export function resolveMiniGames(board) {
   }
 
   return resolvedMiniGames
+}
+
+/**
+ * Use this function to check if the game has any remaining playable moves
+ *
+ * @param {Array} minigames
+ * @returns {Bool} - true if there are no playable moves
+ */
+export function isGameFinished(minigames) {
+  for (const row of minigames) {
+    for (const minigame of row) {
+      if (!minigame) {
+        return false
+      }
+    }
+  }
+  return true
 }
 
 export function printGameState(gameState) {

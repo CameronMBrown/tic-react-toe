@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useContext } from "react"
 
 // context
 import GameStateContext from "../../../store/GameStateContext"
+import SettingsContext from "../../../store/SettingsContext"
 
 // components
 import XSymbol from "../../Symbols/XSymbol"
@@ -11,15 +12,15 @@ import OSymbol from "../../Symbols/OSymbol"
 import "./PlayerArea.scss"
 
 const TICK_RATE = 100
-// TODO: get move timer from settings context
-const timeout = 10000
 
 function PlayerArea({ symbol, initialName, isTurn }) {
+  const gameCtx = useContext(GameStateContext)
+  const settingsCtx = useContext(SettingsContext)
   const [name, setName] = useState(initialName)
   const [isEditing, setIsEditing] = useState(false)
-  const gameCtx = useContext(GameStateContext)
   const input = useRef()
   const classes = ["player-area"]
+  const timeout = settingsCtx.settings.moveTimer
 
   const [remainingMoveTime, setRemainingMoveTime] = useState(timeout)
 

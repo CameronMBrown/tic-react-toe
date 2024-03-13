@@ -82,9 +82,17 @@ export default function SettingsModal({ onChangeSettings }) {
                 settingsCtx.setPointsFor3InARow(e.target.value)
               }}
             />
-            <Setting type="number" name="moveTimer" text="Move Timer" />
+            <Setting
+              type="number"
+              name="moveTimer"
+              text="Move Timer"
+              value={settingsCtx.settings.moveTimer / 1000}
+              onChange={(e) => {
+                settingsCtx.setMoveTimer(e.target.value)
+              }}
+            />
             <div className="buttons-area">
-              <Button type="submit">Save</Button>
+              {/* <Button type="submit">Save</Button> */}
               <Button action={handleResetGame}>Reset Game</Button>
             </div>
           </form>

@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react"
+import { useContext } from "react"
 
 // context
 import GameStateContext from "../../store/GameStateContext"

@@ -29,8 +29,11 @@ export function SettingsContextProvider({ children }) {
     setSettings({ ...settings, points3InARow: points })
   }
 
-  function setMoveTimer(ms) {
-    setSettings({ ...settings, moveTimer: ms })
+  function setMoveTimer(seconds) {
+    const ms = seconds * 1000
+    if (ms >= 1000 && ms <= 60000) {
+      setSettings({ ...settings, moveTimer: ms })
+    }
   }
 
   // function setMissedMoveConsequence(consequence) {

@@ -118,6 +118,8 @@ export const DEFAULT_GAME_DATA = {
   nextValidMove: "all",
   resolvedMiniGames: structuredClone(NEW_MINIGAMES),
   win: false,
+  player1Score: 0,
+  player2Score: 0,
 }
 
 export const BASIC_WIN_CASE = [
