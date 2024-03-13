@@ -12,7 +12,7 @@ import "./PlayerArea.scss"
 
 const TICK_RATE = 100
 // TODO: get move timer from settings context
-const timeout = 5000
+const timeout = 10000
 
 function PlayerArea({ symbol, initialName, isTurn }) {
   const [name, setName] = useState(initialName)

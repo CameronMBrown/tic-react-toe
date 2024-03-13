@@ -4,8 +4,12 @@
   align-items: center;
   justify-content: center;
   aspect-ratio: 1/1;
-  max-width: 1000px;
+  max-width: 900px;
   width: 100vw;
+
+  @media (min-height: 1500px) {
+    max-width: 1250px;
+  }
 }
 
 .board__container {
@@ -18,74 +22,6 @@
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   padding: 1rem;
-
-  // &.has-winner::before {
-  //   // make the board not clickable by placing a transparent element
-  //   content: "";
-  //   position: absolute;
-  //   height: 100%;
-  //   width: 100%;
-  //   background: transparent;
-  //   z-index: 2;
-  // }
-
-  // &.has-winner::after {
-  //   content: "";
-  //   position: absolute;
-  //   border-radius: 99px;
-  //   background-color: red;
-  // }
-
-  // &.win-0::after {
-  //   top: 14.16%;
-  //   left: 5%;
-  //   height: 5%;
-  //   width: 90%;
-  // }
-  // &.win-1::after {
-  //   top: 47.49%;
-  //   left: 5%;
-  //   height: 5%;
-  //   width: 90%;
-  // }
-  // &.win-2::after {
-  //   top: 80.83%;
-  //   left: 5%;
-  //   height: 5%;
-  //   width: 90%;
-  // }
-  // &.win-3::after {
-  //   top: 5%;
-  //   left: 14.16%;
-  //   width: 5%;
-  //   height: 90%;
-  // }
-  // &.win-4::after {
-  //   top: 5%;
-  //   left: 47.49%;
-  //   width: 5%;
-  //   height: 90%;
-  // }
-  // &.win-5::after {
-  //   top: 5%;
-  //   left: 80.83%;
-  //   width: 5%;
-  //   height: 90%;
-  // }
-  // &.win-6::after {
-  //   width: 5%;
-  //   height: 120%;
-  //   left: 50%;
-  //   top: -12%;
-  //   transform: rotate(45deg);
-  // }
-  // &.win-7::after {
-  //   width: 5%;
-  //   height: 120%;
-  //   left: 50%;
-  //   top: -8%;
-  //   transform: rotate(135deg);
-  // }
 }
 
 [id="minigame-00"],

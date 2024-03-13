@@ -9,7 +9,6 @@ import { DEFAULT_GAME_DATA, NEW_GAME, NEW_MINIGAMES, WINS } from "./constants"
 export function loadSavedGame(fallback = structuredClone(DEFAULT_GAME_DATA)) {
   const saveGameData = JSON.parse(localStorage.getItem("gamestate"))
   if (saveGameData) {
-    console.log("restoring saved game")
     // console.log(printGameState(JSON.parse(saveGameData.board))) //debug
     return {
       board: JSON.parse(saveGameData.board),

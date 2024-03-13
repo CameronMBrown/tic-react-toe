@@ -1,0 +1,11 @@
+.won-game-modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 4rem;
+
+  .modal-buttons {
+    display: flex;
+    justify-content: space-around;
+  }
+}

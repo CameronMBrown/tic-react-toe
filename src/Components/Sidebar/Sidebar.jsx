@@ -3,8 +3,11 @@ import { useState, useContext, useEffect } from "react"
 import GameStateContext from "../../store/GameStateContext"
 
 import Pause from "../Symbols/Pause"
+import Play from "../Symbols/Play"
 import SettingsModal from "./Settings/SettingsModal"
 import PausedGameModal from "../UI/PausedGameModal/PausedGameModal"
+
+import "./Sidebar.scss"
 
 function Sidebar() {
   const [showPause, setShowPause] = useState(false)
@@ -21,9 +24,15 @@ function Sidebar() {
     gameCtx.pause()
   }
 
+  const handlePlay = () => {
+    setShowPause(false)
+    if (!gameCtx.win) gameCtx.unpause()
+  }
+
   return (
     <div className="side-buttons">
-      <Pause onClick={handlePause} />
+      {gameCtx.underway && <Pause onClick={handlePause} />}
+      {!gameCtx.underway && <Play onClick={handlePlay} />}
       <SettingsModal />
       {showPause && <PausedGameModal />}
     </div>

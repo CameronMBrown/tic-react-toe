@@ -1,3 +1,14 @@
+.pause-icon {
+  padding: 10px;
+  width: 50px;
+
+  //TODO: hover state
+}
+
+.play-icon {
+  padding: 5px;
+}
+
 .paused-modal {
   display: flex;
   flex-direction: column;
@@ -6,8 +17,6 @@
 
   h3 {
     text-align: center;
-    margin-bottom: 1rem;
-    font-size: 2rem;
   }
 
   .play-btn {
@@ -16,10 +25,13 @@
     justify-content: center;
     align-items: center;
 
+    strong {
+      font-size: 1.2rem;
+    }
+
     svg {
       aspect-ratio: 1/1;
       height: 2rem;
-      margin-left: -0.5rem;
     }
   }
 }

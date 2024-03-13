@@ -17,7 +17,7 @@ function PausedGameModal() {
 
   const handleUnpauseGame = () => {
     setShowModal(false)
-    gameCtx.unpause()
+    if (!gameCtx.win) gameCtx.unpause()
   }
 
   if (!showModal) return
@@ -26,8 +26,8 @@ function PausedGameModal() {
     <Modal className="paused-modal" open={showModal}>
       <h3>Game Paused</h3>
       <Button className="play-btn" action={handleUnpauseGame}>
-        <Play />
-        <span>Play</span>
+        <strong>Play</strong>
+        <Play solid={false} />
       </Button>
     </Modal>
   )

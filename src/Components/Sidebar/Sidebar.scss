@@ -1,0 +1,13 @@
+.side-buttons {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: 10px;
+  right: 10px;
+
+  .play-icon {
+    margin-left: 2px;
+  }
+}

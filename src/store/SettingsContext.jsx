@@ -5,12 +5,12 @@ const SettingsContext = createContext({
     pointsToWin: 3,
     points3InARow: 3,
     moveTimer: 10000,
-    missedMoveConsequence: "random",
+    // missedMoveConsequence: "random",
   },
   setPointsToWin: (points) => {},
   setPointsFor3InARow: (points) => {},
   setMoveTimer: (ms) => {},
-  setMissedMoveConsequence: (consequence) => {},
+  // setMissedMoveConsequence: (consequence) => {},
 })
 
 export function SettingsContextProvider({ children }) {
@@ -18,7 +18,7 @@ export function SettingsContextProvider({ children }) {
     pointsToWin: 3,
     points3InARow: 3,
     moveTimer: 10000,
-    missedMoveConsequence: "random",
+    // missedMoveConsequence: "random",
   })
 
   function setPointsToWin(points) {
@@ -33,21 +33,21 @@ export function SettingsContextProvider({ children }) {
     setSettings({ ...settings, moveTimer: ms })
   }
 
-  function setMissedMoveConsequence(consequence) {
-    setSettings({ ...settings, missedMoveConsequence: consequence })
-  }
+  // function setMissedMoveConsequence(consequence) {
+  //   setSettings({ ...settings, missedMoveConsequence: consequence })
+  // }
 
   const settingsCtx = {
     settings: {
       pointsToWin: settings.pointsToWin,
       points3InARow: settings.points3InARow,
       moveTimer: settings.moveTimer,
-      missedMoveConsequence: settings.missedMoveConsequence,
+      // missedMoveConsequence: settings.missedMoveConsequence,
     },
     setPointsToWin,
     setPointsFor3InARow,
     setMoveTimer,
-    setMissedMoveConsequence,
+    // setMissedMoveConsequence,
   }
 
   return (

@@ -1,10 +1,12 @@
-function Play({ fill = "#000000" }) {
+function Play({ fill = "#000000", solid = true, onClick }) {
   return (
     <svg
       viewBox="0 0 72 72"
       id="emoji"
       xmlns="http://www.w3.org/2000/svg"
       fill={fill}
+      onClick={onClick || null}
+      className="play-icon"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
@@ -18,7 +20,7 @@ function Play({ fill = "#000000" }) {
         <g id="skin"></g> <g id="skin-shadow"></g>
         <g id="line">
           <path
-            fill="none"
+            fill={solid ? "#000000" : "none"}
             stroke="#000000"
             strokeLinejoin="round"
             strokeMiterlimit="10"

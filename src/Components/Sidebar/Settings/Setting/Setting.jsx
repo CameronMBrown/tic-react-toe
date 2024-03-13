@@ -1,13 +1,8 @@
 export default function Setting({ text, type, name, value, onChange }) {
   return (
-    <label>
+    <div className="setting">
       <label htmlFor={name}>{text}</label>
-      <input
-        type={type}
-        value={value}
-        className="setting"
-        onChange={onChange}
-      ></input>
-    </label>
+      <input type={type} value={value} onChange={onChange}></input>
+    </div>
   )
 }

@@ -30,9 +30,11 @@ export default function SettingsModal({ onChangeSettings }) {
     if (!showSettings) return
     else {
       setShowSettings(false)
-      gameCtx.underway = true
+      gameCtx.unpause()
     }
   }
+
+  // TODO: remove default and style custom increment/decrement buttons for number inputs
 
   const handleResetGame = () => {
     // TODO: confirm reset game modal
@@ -51,7 +53,7 @@ export default function SettingsModal({ onChangeSettings }) {
       <Gear onClick={showSettingsModal} />
       {showSettings && (
         <Modal className="settings-modal" open={showSettings}>
-          <Button classes={["close-btn"]} action={closeSettingsModal}>
+          <Button className="close-btn" action={closeSettingsModal}>
             <XSymbol />
           </Button>
           <h3 className="settings-title">Settings</h3>
@@ -80,8 +82,11 @@ export default function SettingsModal({ onChangeSettings }) {
                 settingsCtx.setPointsFor3InARow(e.target.value)
               }}
             />
-            <input type="submit" value="Save" />
-            <Button action={handleResetGame}>Reset Game</Button>
+            <Setting type="number" name="moveTimer" text="Move Timer" />
+            <div className="buttons-area">
+              <Button type="submit">Save</Button>
+              <Button action={handleResetGame}>Reset Game</Button>
+            </div>
           </form>
         </Modal>
       )}

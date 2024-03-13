@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 
 // context
 import GameStateContext from "../../../store/GameStateContext"
@@ -19,6 +19,8 @@ export default function Cell({ cellID, parentX, parentY }) {
   const symbolClasses = []
   let cellFill = "#000000"
   const isFilled = gameCtx.board[parentX][parentY][Xpos][Ypos] !== " "
+
+  // TODO: do not register moves for the first half second to avoid accidents
 
   // turn gold if involved in minigame win
   const miniGameStatus = gameCtx.resolvedMiniGames[parentX][parentY]

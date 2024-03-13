@@ -109,14 +109,8 @@ function gameReducer(state, action) {
 
 export function GameStateContextProvider({ children }) {
   // restore previous game if found
-  let { board, player, nextValidMove, resolvedMiniGames, win } = loadSavedGame()
   const [game, dispatchGameAction] = useReducer(gameReducer, {
-    underway: false, // TODO: play/pause game states. Modals cause pause, page does not load an underway game
-    board,
-    player,
-    nextValidMove,
-    resolvedMiniGames,
-    win,
+    ...loadSavedGame(),
   })
 
   const gameContext = {
