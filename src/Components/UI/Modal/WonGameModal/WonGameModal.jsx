@@ -10,7 +10,7 @@ import Modal from "../Modal"
 // styles
 import "./WonGameModal.scss"
 
-function WonGameModal({ winner }) {
+function WonGameModal({ winner, children }) {
   const gameCtx = useContext(GameStateContext)
   const [showModal, setShowModal] = useState(true)
 
@@ -22,6 +22,7 @@ function WonGameModal({ winner }) {
   return (
     <Modal className="won-game-modal" open={showModal}>
       <h3>{winner} is the Winner!</h3>
+      {children}
       <div className="modal-buttons">
         <Button action={() => setShowModal(false)}>View Board</Button>
         <Button action={() => gameCtx.clear()}>Rematch</Button>

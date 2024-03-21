@@ -15,12 +15,11 @@ const TICK_RATE = 100
 
 function PlayerArea({ symbol, initialName, isTurn }) {
   const gameCtx = useContext(GameStateContext)
-  const settingsCtx = useContext(SettingsContext)
   const [name, setName] = useState(initialName)
   const [isEditing, setIsEditing] = useState(false)
   const input = useRef()
   const classes = ["player-area"]
-  const timeout = settingsCtx.settings.moveTimer
+  const timeout = gameCtx.moveTimer
 
   const [remainingMoveTime, setRemainingMoveTime] = useState(timeout)
 

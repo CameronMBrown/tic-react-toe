@@ -2,7 +2,9 @@ import { useContext } from "react"
 
 // context
 import GameStateContext from "../../store/GameStateContext"
-import SettingsContext from "../../store/SettingsContext"
+
+// components
+import WonGameModal from "../UI/Modal/WonGameModal/WonGameModal"
 
 // styles
 import "./ScoreBoard.scss"
@@ -10,17 +12,31 @@ import PlayerArea from "./PlayerArea/PlayerArea"
 
 export default function ScoreBoard() {
   const gameCtx = useContext(GameStateContext)
-  const settingsCtx = useContext(SettingsContext)
 
-  // TODO: calculate score and display message accordingly
-  // if (gameCtx.player1Score > settingsCtx.settings.pointsToWin) {
-
-  // } else if (gameCtx.player2Score > settingsCtx.settings.pointsToWin) {
-
+  // check for overall win by points
+  // let winner = false
+  // let winningPoints
+  // if (gameCtx.player1Score >= settingsCtx.pointsToWin) {
+  //   winner = "Player 1"
+  //   winningPoints = gameCtx.player1Score
+  //   // gameCtx.pause()
+  // } else if (gameCtx.player2Score >= settingsCtx.pointsToWin) {
+  //   winner = "Player 2"
+  //   winningPoints = gameCtx.player2Score
+  //   // gameCtx.pause()
   // }
 
   return (
     <div className="scoreboard">
+      {/* <WonGameModal winner={winner}>
+        <p>
+          {localStorage.getItem(winner)} won with
+          <strong>{winningPoints}</strong> points
+        </p>
+        <p>
+          Points required to win: <strong>{settingsCtx.pointsToWin}</strong>
+        </p>
+      </WonGameModal> */}
       <PlayerArea
         symbol="X"
         initialName="Player 1"

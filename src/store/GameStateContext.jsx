@@ -24,24 +24,46 @@ const GameStateContext = createContext({
   win: false,
   player1Score: 0,
   player2Score: 0,
+  pointsToWin: 3,
+  pointsForThreeInARow: 3,
+  moveTimer: 20000, // 20s
   insert: (bigX, bigY, miniX, miniY) => {},
   autoMove: () => {},
   clear: () => {},
   pause: () => {},
   unpause: () => {},
+  updateSettings: () => {},
 })
 
 function gameReducer(state, action) {
   if (action.type === "CLEAR") {
-    localStorage.removeItem("gamestate")
+    // save "new game" data to localStorage
+    localStorage.setItem(
+      "gamestate",
+      JSON.stringify({
+        board: JSON.stringify(NEW_GAME),
+        player: "X",
+        nextValidMove: JSON.stringify("all"),
+        resolvedMiniGames: JSON.stringify(NEW_MINIGAMES),
+        win: false,
+        player1Score: 0,
+        player2Score: 0,
+        pointsToWin: state.pointsToWin,
+        pointsForThreeInARow: state.pointsForThreeInARow,
+        moveTimer: state.moveTimer,
+      })
+    )
+
     return {
-      ...state,
+      ...state, // do not alter settings, only gamestate and score
       underway: false,
       board: structuredClone(NEW_GAME),
       player: "X",
       nextValidMove: "all",
       resolvedMiniGames: structuredClone(NEW_MINIGAMES),
       win: false,
+      player1Score: 0,
+      player2Score: 0,
     }
   } else if (action.type === "INSERT") {
     const { bigX, bigY, miniX, miniY } = action.move
@@ -54,7 +76,7 @@ function gameReducer(state, action) {
     let player1Score = state.player1Score
     let player2Score = state.player2Score
 
-    // update game state
+    // update board with player move
     newGameState[bigX][bigY][miniX][miniY] = state.player
 
     // check for minigame win or tie
@@ -83,8 +105,24 @@ function gameReducer(state, action) {
 
     // check for finished game by no moves left
     if (isGameFinished(resolvedMiniGames)) {
-      // TODO: handle endgame
       underway = false
+
+      // the round score is the differential between the players minigame wins
+      let xWins = 0
+      let oWins = 0
+      for (const row of resolvedMiniGames) {
+        for (const minigame of row) {
+          if (minigame === "X") xWins++
+          else if (minigame === "O") oWins++
+        }
+      }
+
+      const points = Math.abs(xWins - oWins)
+      if (xWins > oWins) {
+        player1Score += points
+      } else if (oWins > xWins) {
+        player2Score += points
+      }
     }
 
     // save gamestate to localStorage
@@ -96,6 +134,11 @@ function gameReducer(state, action) {
         nextValidMove: JSON.stringify(nextValidMove),
         resolvedMiniGames: JSON.stringify(resolvedMiniGames),
         win,
+        player1Score,
+        player2Score,
+        pointsToWin: state.pointsToWin,
+        pointsForThreeInARow: state.pointsForThreeInARow,
+        moveTimer: state.moveTimer,
       })
     )
 
@@ -107,6 +150,8 @@ function gameReducer(state, action) {
       nextValidMove,
       resolvedMiniGames,
       win,
+      player1Score,
+      player2Score,
     }
   } else if (action.type === "PAUSE") {
     return {
@@ -117,6 +162,40 @@ function gameReducer(state, action) {
     return {
       ...state,
       underway: true,
+    }
+  } else if (action.type === "UPDATE_GAME_SETTINGS") {
+    const { pointsToWin, pointsForThreeInARow, moveTimer } = action.settings
+
+    // save new settings and "new game" data to localStorage
+    localStorage.setItem(
+      "gamestate",
+      JSON.stringify({
+        board: JSON.stringify(NEW_GAME),
+        player: "X",
+        nextValidMove: JSON.stringify("all"),
+        resolvedMiniGames: JSON.stringify(NEW_MINIGAMES),
+        win: false,
+        player1Score: 0,
+        player2Score: 0,
+        pointsToWin,
+        pointsForThreeInARow,
+        moveTimer,
+      })
+    )
+
+    return {
+      ...state,
+      underway: false,
+      board: structuredClone(NEW_GAME),
+      player: "X",
+      nextValidMove: "all",
+      resolvedMiniGames: structuredClone(NEW_MINIGAMES),
+      win: false,
+      player1Score: 0,
+      player2Score: 0,
+      pointsToWin,
+      pointsForThreeInARow,
+      moveTimer,
     }
   }
 }
@@ -136,11 +215,15 @@ export function GameStateContextProvider({ children }) {
     win: game.win,
     player1Score: game.player1Score,
     player2Score: game.player2Score,
+    pointsToWin: game.pointsToWin,
+    pointsForThreeInARow: game.pointsForThreeInARow,
+    moveTimer: game.moveTimer,
     insert,
     autoMove,
     clear,
     pause,
     unpause,
+    updateSettings,
   }
 
   function insert(bigX, bigY, miniX, miniY) {
@@ -184,7 +267,7 @@ export function GameStateContextProvider({ children }) {
     ;[miniX, miniY] =
       validCellIndexes[Math.floor(Math.random() * validCellIndexes.length)]
 
-    console.log(`auto move - ${bigX}, ${bigY}, ${miniX}, ${miniY}`)
+    // console.log(`auto move - ${bigX}, ${bigY}, ${miniX}, ${miniY}`) // debug
 
     // do an insert with the randomly selected coordinates
     dispatchGameAction({ type: "INSERT", move: { bigX, bigY, miniX, miniY } })
@@ -200,6 +283,10 @@ export function GameStateContextProvider({ children }) {
 
   function unpause() {
     dispatchGameAction({ type: "UNPAUSE" })
+  }
+
+  function updateSettings(settings) {
+    dispatchGameAction({ type: "UPDATE_GAME_SETTINGS", settings })
   }
 
   return (

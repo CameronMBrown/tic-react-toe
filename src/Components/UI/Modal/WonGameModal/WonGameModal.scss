@@ -4,8 +4,15 @@
   justify-content: center;
   padding: 2rem 4rem;
 
+  h3,
+  p {
+    text-align: center;
+  }
+
   .modal-buttons {
     display: flex;
     justify-content: space-around;
+    min-width: 40vw;
+    margin: 2rem 0 0 0;
   }
 }

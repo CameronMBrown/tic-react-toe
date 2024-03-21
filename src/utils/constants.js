@@ -55,7 +55,6 @@ export const NEW_GAME = [
     [
       [" ", " ", " "],
       [" ", " ", " "],
-
       [" ", " ", " "],
     ],
     [
@@ -120,6 +119,9 @@ export const DEFAULT_GAME_DATA = {
   win: false,
   player1Score: 0,
   player2Score: 0,
+  pointsToWin: 3,
+  pointsForThreeInARow: 3,
+  moveTimer: 20000,
 }
 
 export const BASIC_WIN_CASE = [
