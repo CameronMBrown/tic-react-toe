@@ -1,8 +1,9 @@
+// TODO: maybe refactor move timer into its own component
+
 import { useState, useRef, useEffect, useContext } from "react"
 
 // context
 import GameStateContext from "../../../store/GameStateContext"
-import SettingsContext from "../../../store/SettingsContext"
 
 // components
 import XSymbol from "../../Symbols/XSymbol"
@@ -11,6 +12,7 @@ import OSymbol from "../../Symbols/OSymbol"
 // styles
 import "./PlayerArea.scss"
 
+// how often the progress element (move timer) recalculates in ms
 const TICK_RATE = 100
 
 function PlayerArea({ symbol, initialName, isTurn }) {
@@ -61,7 +63,15 @@ function PlayerArea({ symbol, initialName, isTurn }) {
 
   if (isTurn) classes.push("your-turn")
 
-  if (gameCtx.win && !isTurn) classes.push("winner")
+  // add classes for win case
+  if (
+    (gameCtx.win && !isTurn) || // the last move won the game
+    (gameCtx.win.points &&
+      !gameCtx.win.rematch &&
+      gameCtx.win.player === initialName) // win by points
+  ) {
+    classes.push("winner")
+  }
 
   // give immediate focus to name input when clicked
   useEffect(() => {
@@ -93,9 +103,10 @@ function PlayerArea({ symbol, initialName, isTurn }) {
   }
 
   let nameContent = (
-    <h3 className="player-name" onClick={() => setIsEditing(true)}>
-      {name}
-    </h3>
+    <div className="player-name-wrapper" onClick={() => setIsEditing(true)}>
+      <p className="player-name">{name}</p>
+      <p className="name-prompt">Change Name</p>
+    </div>
   )
 
   if (isEditing) {
@@ -106,6 +117,7 @@ function PlayerArea({ symbol, initialName, isTurn }) {
         className="player-name"
         value={name}
         onBlur={handleFinishEditing}
+        maxLength="50"
         onKeyUp={(e) => {
           e.key === "Enter" && handleFinishEditing()
         }}

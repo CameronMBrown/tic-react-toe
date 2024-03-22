@@ -1,29 +1,71 @@
+@import "../../utils/theme.scss";
+
 .scoreboard {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  // gap: 10%;
   position: relative;
-  width: 100%;
+  width: 90%;
   justify-self: center;
-  display: flex;
-  flex-direction: row;
-  gap: 10%;
   justify-content: center;
   align-items: center;
 
-  h2 {
-    font-size: 3rem;
-  }
+  .score-area {
+    padding: 0 1rem;
+    white-space: nowrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s ease-in-out;
 
-  .player-1-score {
-    margin-right: 1rem;
-  }
+    &:hover {
+      .player-scores {
+        opacity: 0;
+      }
+      .score-prompt {
+        opacity: 0.7;
+      }
+    }
 
-  .player-2-score {
-    margin-left: 1rem;
-  }
+    .player-scores {
+      font-size: 1rem;
+      font-weight: bold;
+      transition: inherit;
 
-  svg {
-    aspect-ratio: 1/1;
-    height: 50px;
-    width: 50px;
-    margin: 0.5rem 1rem 0.5rem 0;
+      @include sm {
+        font-size: 1.5rem;
+      }
+      @include md {
+        font-size: 2rem;
+      }
+      @include lg {
+        font-size: 3rem;
+      }
+
+      .player-1-score {
+        margin-right: 1rem;
+      }
+
+      .player-2-score {
+        margin-left: 1rem;
+      }
+    }
+
+    .score-prompt {
+      position: absolute;
+      font-weight: 500;
+      opacity: 0;
+      transition: inherit;
+
+      @include sm {
+        font-size: 1rem;
+      }
+      @include md {
+        font-size: 1.5rem;
+      }
+      @include lg {
+        font-size: 2rem;
+      }
+    }
   }
 }

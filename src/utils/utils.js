@@ -19,12 +19,25 @@ export function loadSavedGame(fallback = structuredClone(DEFAULT_GAME_DATA)) {
       player1Score: saveGameData.player1Score,
       player2Score: saveGameData.player2Score,
       pointsToWin: saveGameData.pointsToWin,
-      pointsForThreeInARow: saveGameData.pointsForThreeInARow,
       moveTimer: saveGameData.moveTimer,
     }
   } else {
     return fallback
   }
+}
+
+/**
+ * if there is a localStorage record, ie. the player has set a custom name, return it
+ *
+ * @param {String} initialName either "Player 1" or "Player 2"
+ * @returns {String} user set name
+ */
+export function loadSavedPlayerName(initialName) {
+  if (localStorage.getItem(initialName)) {
+    return localStorage.getItem(initialName)
+  }
+
+  return initialName
 }
 
 /**
@@ -44,8 +57,8 @@ export function checkForWin(game, player) {
         checkForWin(game[arrangement[1].x][arrangement[1].y], player) &&
         checkForWin(game[arrangement[2].x][arrangement[2].y], player)
       ) {
+        // console.log("Winning arrangement key: " + WINS.indexOf(arrangement) + 1) // debug
         console.log(`${player} is the Winner!`)
-        console.log(WINS.indexOf(arrangement) + 1)
         // add 1 so even a 0 index as evaluates as truthy
         return WINS.indexOf(arrangement) + 1
       }

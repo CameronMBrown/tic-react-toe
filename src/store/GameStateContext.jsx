@@ -25,18 +25,18 @@ const GameStateContext = createContext({
   player1Score: 0,
   player2Score: 0,
   pointsToWin: 3,
-  pointsForThreeInARow: 3,
   moveTimer: 20000, // 20s
   insert: (bigX, bigY, miniX, miniY) => {},
   autoMove: () => {},
-  clear: () => {},
+  reset: () => {},
+  clearBoard: () => {},
   pause: () => {},
   unpause: () => {},
   updateSettings: () => {},
 })
 
 function gameReducer(state, action) {
-  if (action.type === "CLEAR") {
+  if (action.type === "RESET") {
     // save "new game" data to localStorage
     localStorage.setItem(
       "gamestate",
@@ -49,7 +49,6 @@ function gameReducer(state, action) {
         player1Score: 0,
         player2Score: 0,
         pointsToWin: state.pointsToWin,
-        pointsForThreeInARow: state.pointsForThreeInARow,
         moveTimer: state.moveTimer,
       })
     )
@@ -64,6 +63,33 @@ function gameReducer(state, action) {
       win: false,
       player1Score: 0,
       player2Score: 0,
+    }
+  } else if (action.type === "CLEAR") {
+    // TODO: previous winner goes first in new game
+    // keep the score, but set the board for a new game
+    localStorage.setItem(
+      "gamestate",
+      JSON.stringify({
+        board: JSON.stringify(NEW_GAME),
+        player: "X",
+        nextValidMove: JSON.stringify("all"),
+        resolvedMiniGames: JSON.stringify(NEW_MINIGAMES),
+        win: false,
+        player1Score: state.player1Score,
+        player2Score: state.player2Score,
+        pointsToWin: state.pointsToWin,
+        moveTimer: state.moveTimer,
+      })
+    )
+
+    return {
+      ...state, // same settings and score
+      underway: false,
+      board: structuredClone(NEW_GAME),
+      player: "X",
+      nextValidMove: "all",
+      resolvedMiniGames: structuredClone(NEW_MINIGAMES),
+      win: false,
     }
   } else if (action.type === "INSERT") {
     const { bigX, bigY, miniX, miniY } = action.move
@@ -100,29 +126,63 @@ function gameReducer(state, action) {
     if (win) {
       nextValidMove = "all"
       underway = false
-      console.log("WINNER!!!")
+      if (state.player === "X") {
+        player1Score += state.pointsToWin
+      } else {
+        player2Score += state.pointsToWin
+      }
     }
-
     // check for finished game by no moves left
-    if (isGameFinished(resolvedMiniGames)) {
+    else if (isGameFinished(resolvedMiniGames)) {
       underway = false
+      nextValidMove = null
 
       // the round score is the differential between the players minigame wins
       let xWins = 0
       let oWins = 0
       for (const row of resolvedMiniGames) {
         for (const minigame of row) {
-          if (minigame === "X") xWins++
-          else if (minigame === "O") oWins++
+          console.log(minigame)
+          if (minigame.winner === "X") xWins++
+          else if (minigame.winner === "O") oWins++
         }
       }
 
+      // check for win by points
       const points = Math.abs(xWins - oWins)
       if (xWins > oWins) {
+        // player 1 has more wins, add differential to playerscore
         player1Score += points
+        if (player1Score >= state.pointsToWin) {
+          win = { points: true, player: "Player 1" }
+        } else {
+          // no player has yet acheieved the number of points to win
+          win = {
+            points: true,
+            player: "Player 1",
+            rematch: true,
+            roundScore: points,
+          }
+        }
       } else if (oWins > xWins) {
         player2Score += points
+        if (player2Score >= state.pointsToWin) {
+          win = { points: true, player: "Player 2" }
+        } else {
+          win = {
+            points: true,
+            player: "Player 2",
+            rematch: true,
+            roundScore: points,
+          }
+        }
+      } else {
+        // the game was a wash - no one gets points
+        win = { points: true, player: null, rematch: true }
       }
+
+      console.log(player1Score)
+      console.log(player2Score)
     }
 
     // save gamestate to localStorage
@@ -137,7 +197,6 @@ function gameReducer(state, action) {
         player1Score,
         player2Score,
         pointsToWin: state.pointsToWin,
-        pointsForThreeInARow: state.pointsForThreeInARow,
         moveTimer: state.moveTimer,
       })
     )
@@ -164,7 +223,7 @@ function gameReducer(state, action) {
       underway: true,
     }
   } else if (action.type === "UPDATE_GAME_SETTINGS") {
-    const { pointsToWin, pointsForThreeInARow, moveTimer } = action.settings
+    const { pointsToWin, moveTimer } = action.settings
 
     // save new settings and "new game" data to localStorage
     localStorage.setItem(
@@ -178,7 +237,6 @@ function gameReducer(state, action) {
         player1Score: 0,
         player2Score: 0,
         pointsToWin,
-        pointsForThreeInARow,
         moveTimer,
       })
     )
@@ -194,7 +252,6 @@ function gameReducer(state, action) {
       player1Score: 0,
       player2Score: 0,
       pointsToWin,
-      pointsForThreeInARow,
       moveTimer,
     }
   }
@@ -216,11 +273,11 @@ export function GameStateContextProvider({ children }) {
     player1Score: game.player1Score,
     player2Score: game.player2Score,
     pointsToWin: game.pointsToWin,
-    pointsForThreeInARow: game.pointsForThreeInARow,
     moveTimer: game.moveTimer,
     insert,
     autoMove,
-    clear,
+    reset,
+    clearBoard,
     pause,
     unpause,
     updateSettings,
@@ -273,7 +330,11 @@ export function GameStateContextProvider({ children }) {
     dispatchGameAction({ type: "INSERT", move: { bigX, bigY, miniX, miniY } })
   }
 
-  function clear() {
+  function reset() {
+    dispatchGameAction({ type: "RESET" })
+  }
+
+  function clearBoard() {
     dispatchGameAction({ type: "CLEAR" })
   }
 

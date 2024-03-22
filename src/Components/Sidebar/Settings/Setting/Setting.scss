@@ -1,9 +1,30 @@
-input[type="number"] {
-  -webkit-appearance: textfield;
-  -moz-appearance: textfield;
-  appearance: textfield;
-}
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
+.setting {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 0 0 0.5rem 0;
+  input {
+    text-align: center;
+    width: 50px;
+  }
+
+  input[type="number"] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    border: none;
+  }
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+  }
+  .input-wrapper {
+    display: flex;
+
+    .setting-increment-btn,
+    .setting-decrement-btn {
+      height: 35px;
+      aspect-ratio: 1/1;
+    }
+  }
 }

@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react"
 
 // context
-import SettingsContext from "../../../store/SettingsContext"
 import GameStateContext from "../../../store/GameStateContext"
 
 // components
@@ -15,13 +14,11 @@ import Modal from "../../UI/Modal/Modal"
 import "./SettingsModal.scss"
 
 export default function SettingsModal() {
-  const settingsCtx = useContext(SettingsContext)
   const gameCtx = useContext(GameStateContext)
   const [showSettings, setShowSettings] = useState(false)
   const [confirmChange, setConfirmChange] = useState(false)
   const [settings, setSettings] = useState({
     pointsToWin: gameCtx.pointsToWin,
-    pointsForThreeInARow: gameCtx.pointsForThreeInARow,
     moveTimer: gameCtx.moveTimer,
   })
   let modalContent
@@ -35,10 +32,9 @@ export default function SettingsModal() {
 
   const closeSettingsModal = () => {
     if (!showSettings) return
-    else {
-      setShowSettings(false)
-      gameCtx.unpause()
-    }
+    else setShowSettings(false)
+
+    if (!gameCtx.win) gameCtx.unpause()
   }
 
   // TODO: remove default and style custom increment/decrement buttons for number inputs
@@ -50,7 +46,6 @@ export default function SettingsModal() {
     // clear game & apply settings
     gameCtx.updateSettings({
       pointsToWin: settings.pointsToWin,
-      pointsForThreeInARow: settings.pointsForThreeInARow,
       moveTimer: settings.moveTimer,
     })
   }
@@ -67,33 +62,14 @@ export default function SettingsModal() {
           <Setting
             type="number"
             name="pointsToWin"
-            text="Points To Win"
-            value={
-              settings.pointsForThreeInARow > settings.pointsToWin
-                ? settings.pointsForThreeInARow
-                : settings.pointsToWin
-            }
+            text="Points to win"
+            value={settings.pointsToWin}
             onChange={(e) => {
               let val = +e.target.value
               if (val > 0) {
                 setSettings((prev) => ({
                   ...prev,
                   pointsToWin: val,
-                }))
-              }
-            }}
-          />
-          <Setting
-            type="number"
-            name="pointsForThreeInARow"
-            text="Points Awarded for a 'Three-in-a-row'"
-            value={settings.pointsForThreeInARow}
-            onChange={(e) => {
-              let val = +e.target.value
-              if (val >= 3) {
-                setSettings((prev) => ({
-                  ...prev,
-                  pointsForThreeInARow: val,
                 }))
               }
             }}

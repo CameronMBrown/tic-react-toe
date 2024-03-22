@@ -26,7 +26,8 @@ export default function MiniGame({ gameID }) {
   if (
     (!gameCtx.resolvedMiniGames[parentX][parentY] && // the current minigame is not resolved and...
       gameCtx.nextValidMove === "all") || // the next valid move is "all" or...
-    (gameCtx.nextValidMove[0] === parentX && // the next valid move is this minigame
+    (Array.isArray(gameCtx.nextValidMove) && // the next valid move is this minigame
+      gameCtx.nextValidMove[0] === parentX &&
       gameCtx.nextValidMove[1] === parentY)
   ) {
     classes.push("valid-move")
@@ -35,12 +36,14 @@ export default function MiniGame({ gameID }) {
   }
 
   // set classes for win
-  if (gameCtx.win) {
+  if (gameCtx.win && !gameCtx.win.points) {
     for (const arrangement of WINS[gameCtx.win - 1]) {
       if (arrangement.x === parentX && arrangement.y === parentY) {
         classes.push("involved-in-win")
       }
     }
+  } else if (gameCtx.win.points) {
+    // TODO: add minigame styles for win by points
   }
 
   return (

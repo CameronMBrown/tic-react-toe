@@ -6,32 +6,47 @@
 }
 
 .settings-modal {
+  font-size: 10px;
+  padding: 0.5rem 1rem 1rem 1rem;
+
+  @include sm {
+    font-size: 16px;
+  }
+  @include md {
+    font-size: 20px;
+  }
   .close-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    // background: transparent;
     border-radius: 10px;
     position: absolute;
-    right: 0;
-    top: 0;
-    padding: 0.5rem;
-    margin: 1rem;
-
-    // TODO:
-    &:hover {
-      background-color: lightgrey;
-    }
+    right: 8px;
+    top: 8px;
+    height: 35px;
+    aspect-ratio: 1/1;
+    padding: 0.2rem;
 
     .X {
-      height: 25px;
-      width: 25px;
+      height: 10px;
+      width: 10px;
     }
   }
 
   .settings-title {
     width: 100%;
     text-align: center;
+    font-size: 16px;
+
+    @include sm {
+      font-size: 20px;
+    }
+    @include md {
+      font-size: 26px;
+    }
+    @include lg {
+      font-size: 30px;
+    }
   }
 
   .message-area {
@@ -42,21 +57,24 @@
   .settings-form {
     display: flex;
     flex-direction: column;
-
-    .setting {
-      display: flex;
-      justify-content: space-between;
-      gap: 2rem;
-
-      input {
-        text-align: right;
-      }
-    }
+    font-size: inherit;
   }
 
   .buttons-area {
     display: flex;
     justify-content: space-around;
     margin-top: 1rem;
+
+    .btn {
+      padding: 0.25rem 0.5rem;
+      font-size: inherit;
+
+      @include sm {
+        padding: 0.4rem 0.8rem;
+      }
+      @include md {
+        padding: 0.5rem 1rem;
+      }
+    }
   }
 }

@@ -1,3 +1,7 @@
+// TODO: retire this component???
+// clicking on the board should unpause the game
+// page load should always start with a paused game
+
 import { useContext, useState } from "react"
 
 // context
