@@ -1,3 +1,5 @@
+@import "../../../utils/theme.scss";
+
 .btn {
   align-items: center;
   appearance: none;
@@ -27,7 +29,14 @@
   touch-action: manipulation;
   white-space: nowrap;
   will-change: box-shadow, transform;
-  font-size: 18px;
+  font-size: 10px;
+
+  @include sm {
+    font-size: 14px;
+  }
+  @include md {
+    font-size: 18px;
+  }
 }
 
 .btn:focus {

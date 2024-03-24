@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react"
+import React, { useCallback, useContext, useState } from "react"
 
 // context
 import GameStateContext from "../../../store/GameStateContext"
@@ -18,6 +18,7 @@ export default function SettingsModal() {
   const [showSettings, setShowSettings] = useState(false)
   const [confirmChange, setConfirmChange] = useState(false)
   const [settings, setSettings] = useState({
+    vsComputer: gameCtx.vsComputer,
     pointsToWin: gameCtx.pointsToWin,
     moveTimer: gameCtx.moveTimer,
   })
@@ -37,7 +38,9 @@ export default function SettingsModal() {
     if (!gameCtx.win) gameCtx.unpause()
   }
 
-  // TODO: remove default and style custom increment/decrement buttons for number inputs
+  const onIncrement = useCallback((setting, newValue) => {
+    setSettings((prev) => ({ ...prev, [setting]: newValue }))
+  }, [])
 
   const handleSaveSettings = () => {
     setShowSettings(false)
@@ -45,6 +48,7 @@ export default function SettingsModal() {
 
     // clear game & apply settings
     gameCtx.updateSettings({
+      vsComputer: settings.vsComputer,
       pointsToWin: settings.pointsToWin,
       moveTimer: settings.moveTimer,
     })
@@ -60,10 +64,20 @@ export default function SettingsModal() {
         <h3 className="settings-title">Settings</h3>
         <form className="settings-form">
           <Setting
+            type="checkbox"
+            name="vsComputer"
+            text="Play against computer"
+            value={settings.vsComputer}
+            onChange={(e) => {
+              setSettings((prev) => ({ ...prev, vsComputer: e.target.checked }))
+            }}
+          />
+          <Setting
             type="number"
             name="pointsToWin"
             text="Points to win"
             value={settings.pointsToWin}
+            onIncrement={onIncrement}
             onChange={(e) => {
               let val = +e.target.value
               if (val > 0) {
@@ -79,6 +93,7 @@ export default function SettingsModal() {
             name="moveTimer"
             text="Move Timer (seconds)"
             value={settings.moveTimer / 1000}
+            onIncrement={onIncrement}
             onChange={(e) => {
               setSettings((prev) => ({
                 ...prev,
@@ -110,8 +125,10 @@ export default function SettingsModal() {
     modalContent = (
       <>
         <div className="message-area">
-          {confirmChange.message && <p>{confirmChange.message}</p>}
-          <p>Are you sure you want to reset the game?</p>
+          {confirmChange.message && (
+            <p className="heading">{confirmChange.message}</p>
+          )}
+          <p>Are you sure?</p>
         </div>
         <div className="buttons-area">
           <Button type="button" action={() => setConfirmChange(false)}>

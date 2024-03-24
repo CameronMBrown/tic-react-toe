@@ -2,11 +2,13 @@
 
 .player-area {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  justify-self: center;
+  width: fit-content;
   padding: 1rem;
   min-height: -webkit-fill-available;
-  flex-direction: column;
   row-gap: 0.25rem;
   margin: 2rem 0 0 0;
   position: relative;
@@ -40,6 +42,8 @@
 
   .player-name-wrapper {
     position: relative;
+    display: flex;
+    align-items: center;
     width: 100%;
     transition: 0.3s ease-in-out;
     z-index: 1;
@@ -84,24 +88,23 @@
 
     .name-prompt {
       position: absolute;
+      margin: 0.5rem 0 0 0;
       opacity: 0;
-      top: 25%;
       width: 100%;
-      // border: 1px solid grey;
-      // box-shadow: 0 0 5px inset grey;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      white-space: nowrap;
       font-weight: bold;
       transition: inherit;
+      font-size: 0.7rem;
 
-      @include sm {
+      @include md {
         font-size: 0.9rem;
       }
-      @include md {
-        font-size: 1.1rem;
-      }
       @include lg {
-        font-size: 1.3rem;
+        font-size: 1.1rem;
       }
     }
   }

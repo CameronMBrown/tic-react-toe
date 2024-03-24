@@ -1,67 +1,26 @@
-// TODO: maybe refactor move timer into its own component
-
 import { useState, useRef, useEffect, useContext } from "react"
 
 // context
 import GameStateContext from "../../../store/GameStateContext"
 
 // components
+import MoveTimer from "../MoveTimer/MoveTimer"
 import XSymbol from "../../Symbols/XSymbol"
 import OSymbol from "../../Symbols/OSymbol"
 
 // styles
 import "./PlayerArea.scss"
 
-// how often the progress element (move timer) recalculates in ms
-const TICK_RATE = 100
-
 function PlayerArea({ symbol, initialName, isTurn }) {
   const gameCtx = useContext(GameStateContext)
-  const [name, setName] = useState(initialName)
+  const [name, setName] = useState(
+    gameCtx.vsComputer && symbol === "O" ? "Computer" : initialName
+  )
   const [isEditing, setIsEditing] = useState(false)
   const input = useRef()
   const classes = ["player-area"]
-  const timeout = gameCtx.moveTimer
 
-  const [remainingMoveTime, setRemainingMoveTime] = useState(timeout)
-
-  // move timer
-  useEffect(() => {
-    let timer
-    if (gameCtx.player === symbol) {
-      setRemainingMoveTime(timeout)
-      timer = setTimeout(() => {
-        if (gameCtx.underway) {
-          // if the player does not make a move before the end of the timer,
-          // the consequence is a randomly made valid move
-          gameCtx.autoMove()
-        }
-      }, timeout)
-    }
-
-    return () => {
-      clearTimeout(timer)
-    }
-  }, [gameCtx.player, gameCtx.underway, symbol])
-
-  // update timer visual indicator
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setRemainingMoveTime((prev) => {
-        if (gameCtx.underway) {
-          return prev - TICK_RATE
-        } else {
-          return prev
-        }
-      })
-    }, TICK_RATE)
-
-    return () => {
-      clearInterval(interval)
-    }
-  }, [gameCtx.underway])
-
-  if (isTurn) classes.push("your-turn")
+  if (isTurn && !gameCtx.win) classes.push("your-turn")
 
   // add classes for win case
   if (
@@ -105,7 +64,7 @@ function PlayerArea({ symbol, initialName, isTurn }) {
   let nameContent = (
     <div className="player-name-wrapper" onClick={() => setIsEditing(true)}>
       <p className="player-name">{name}</p>
-      <p className="name-prompt">Change Name</p>
+      <p className="name-prompt">Change</p>
     </div>
   )
 
@@ -129,12 +88,7 @@ function PlayerArea({ symbol, initialName, isTurn }) {
   return (
     <div className={classes.join(" ")}>
       {gameCtx.player === symbol && gameCtx.underway && (
-        <progress
-          id="move-timer"
-          className="move-timer"
-          max={timeout}
-          value={remainingMoveTime}
-        />
+        <MoveTimer symbol={symbol} />
       )}
       {symbol === "X" ? <XSymbol /> : <OSymbol />}
       {nameContent}

@@ -52,6 +52,21 @@
   .message-area {
     text-align: center;
     padding: 0 2rem;
+
+    .heading {
+      font-weight: bold;
+      margin-bottom: 1rem;
+
+      @include sm {
+        font-size: 20px;
+      }
+      @include md {
+        font-size: 22px;
+      }
+      @include lg {
+        font-size: 26px;
+      }
+    }
   }
 
   .settings-form {
@@ -64,10 +79,17 @@
     display: flex;
     justify-content: space-around;
     margin-top: 1rem;
+    min-width: 200px;
+
+    @include sm {
+      min-width: 250px;
+    }
+    @include md {
+      min-width: 350px;
+    }
 
     .btn {
       padding: 0.25rem 0.5rem;
-      font-size: inherit;
 
       @include sm {
         padding: 0.4rem 0.8rem;

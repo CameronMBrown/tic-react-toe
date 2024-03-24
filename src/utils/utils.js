@@ -18,6 +18,7 @@ export function loadSavedGame(fallback = structuredClone(DEFAULT_GAME_DATA)) {
       win: saveGameData.win,
       player1Score: saveGameData.player1Score,
       player2Score: saveGameData.player2Score,
+      vsComputer: saveGameData.vsComputer,
       pointsToWin: saveGameData.pointsToWin,
       moveTimer: saveGameData.moveTimer,
     }

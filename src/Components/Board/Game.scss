@@ -7,9 +7,14 @@
   aspect-ratio: 1/1;
   max-width: 900px;
   width: 100vw;
+  margin-bottom: 10%;
 
   @media (min-height: 1500px) {
     max-width: 1250px;
+  }
+
+  .postgame-btn {
+    top: -25px;
   }
 }
 

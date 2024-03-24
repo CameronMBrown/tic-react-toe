@@ -24,6 +24,7 @@ const GameStateContext = createContext({
   win: false,
   player1Score: 0,
   player2Score: 0,
+  vsComputer: false,
   pointsToWin: 3,
   moveTimer: 20000, // 20s
   insert: (bigX, bigY, miniX, miniY) => {},
@@ -95,7 +96,7 @@ function gameReducer(state, action) {
     const { bigX, bigY, miniX, miniY } = action.move
     let underway = true
     const newGameState = [...state.board]
-    const player = state.player === "X" ? "O" : "X"
+    let player = state.player === "X" ? "O" : "X"
     let nextValidMove = "all"
     const resolvedMiniGames = [...state.resolvedMiniGames]
     let win = state.win
@@ -124,8 +125,8 @@ function gameReducer(state, action) {
     // check for overall win
     win = checkForWin(newGameState, state.player)
     if (win) {
-      nextValidMove = "all"
       underway = false
+      nextValidMove = "all"
       if (state.player === "X") {
         player1Score += state.pointsToWin
       } else {
@@ -142,7 +143,6 @@ function gameReducer(state, action) {
       let oWins = 0
       for (const row of resolvedMiniGames) {
         for (const minigame of row) {
-          console.log(minigame)
           if (minigame.winner === "X") xWins++
           else if (minigame.winner === "O") oWins++
         }
@@ -180,9 +180,6 @@ function gameReducer(state, action) {
         // the game was a wash - no one gets points
         win = { points: true, player: null, rematch: true }
       }
-
-      console.log(player1Score)
-      console.log(player2Score)
     }
 
     // save gamestate to localStorage
@@ -196,6 +193,7 @@ function gameReducer(state, action) {
         win,
         player1Score,
         player2Score,
+        vsComputer: state.vsComputer,
         pointsToWin: state.pointsToWin,
         moveTimer: state.moveTimer,
       })
@@ -223,7 +221,10 @@ function gameReducer(state, action) {
       underway: true,
     }
   } else if (action.type === "UPDATE_GAME_SETTINGS") {
-    const { pointsToWin, moveTimer } = action.settings
+    const { vsComputer, pointsToWin, moveTimer } = action.settings
+
+    if (vsComputer) localStorage.setItem("Player 2", "Computer")
+    else localStorage.removeItem("Player 2")
 
     // save new settings and "new game" data to localStorage
     localStorage.setItem(
@@ -236,6 +237,7 @@ function gameReducer(state, action) {
         win: false,
         player1Score: 0,
         player2Score: 0,
+        vsComputer,
         pointsToWin,
         moveTimer,
       })
@@ -251,6 +253,7 @@ function gameReducer(state, action) {
       win: false,
       player1Score: 0,
       player2Score: 0,
+      vsComputer,
       pointsToWin,
       moveTimer,
     }
@@ -272,6 +275,7 @@ export function GameStateContextProvider({ children }) {
     win: game.win,
     player1Score: game.player1Score,
     player2Score: game.player2Score,
+    vsComputer: game.vsComputer,
     pointsToWin: game.pointsToWin,
     moveTimer: game.moveTimer,
     insert,

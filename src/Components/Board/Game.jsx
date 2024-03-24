@@ -1,11 +1,11 @@
 import { useContext } from "react"
+import { useInView } from "react-intersection-observer"
 
 // context
 import GameStateContext from "../../store/GameStateContext"
 
 // components
 import MiniGame from "./MiniGame/MiniGame"
-// import PausedGameModal from "../UI/PausedGameModal/PausedGameModal"
 import WonGameModal from "../UI/Modal/WonGameModal/WonGameModal"
 import RematchModal from "../UI/Modal/RematchModal/RematchModal"
 import Button from "../UI/Button/Button"
@@ -18,6 +18,7 @@ import "./Game.scss"
 
 export default function Game() {
   const gameCtx = useContext(GameStateContext)
+  const { ref, inView } = useInView({ threshold: 0.5 })
 
   // add classes depending on winning configuration
   let classes = ["board__container"]
@@ -25,10 +26,18 @@ export default function Game() {
     classes.push(`win-${gameCtx.win - 1}`)
   }
 
+  // pause the game if the user scrolls down to read the rlues etc.
+  // TODO: investigate console warning thrown by this feature
+  if (inView && !gameCtx.win && !gameCtx.underway) {
+    gameCtx.unpause()
+  } else if (!inView && gameCtx.underway) {
+    gameCtx.pause()
+  }
+
   // show a modal for winning/rematch cases
   let modalContent
   if (gameCtx.win && !gameCtx.win.points) {
-    // game is over with a tick-tac-toe
+    // game is over with a tic-tac-toe
     modalContent = (
       <WonGameModal
         winner={
@@ -38,7 +47,7 @@ export default function Game() {
             : loadSavedPlayerName("Player 2")
         }
       >
-        <p>tick-tac-toe!</p>
+        <p>tic-tac-toe!</p>
       </WonGameModal>
     )
   } else if (gameCtx.win.points && !gameCtx.win.rematch) {
@@ -91,7 +100,7 @@ export default function Game() {
   }
 
   return (
-    <div className="game-wrapper">
+    <div ref={ref} className="game-wrapper">
       {modalContent}
       {gameCtx.win && !gameCtx.win.rematch && (
         <Button className="postgame-btn" action={gameCtx.reset}>
