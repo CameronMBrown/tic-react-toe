@@ -97,10 +97,12 @@ export default function SettingsModal() {
             value={settings.moveTimer / 1000}
             onIncrement={onIncrement}
             onChange={(e) => {
-              setSettings((prev) => ({
-                ...prev,
-                moveTimer: e.target.value * 1000,
-              }))
+              if (e.target.value > 0) {
+                setSettings((prev) => ({
+                  ...prev,
+                  moveTimer: e.target.value * 1000,
+                }))
+              }
             }}
           />
           <div className="buttons-area">
