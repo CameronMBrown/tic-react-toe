@@ -46,8 +46,9 @@ function InfoModal() {
             <h3>Hey, I'm Cameron 👋</h3>
             <p>Thanks for checking out my site!</p>
             <p>
-              For a while I have been thinking about how this version of the
-              game would make for a perfect react project, so I made it!
+              For a while I have been thinking about how this spin on the
+              classic tic-tac-toe game would make for a perfect react project,
+              so I made it!
             </p>
             <p>
               For a more detailed explaination, checkout my github and the
