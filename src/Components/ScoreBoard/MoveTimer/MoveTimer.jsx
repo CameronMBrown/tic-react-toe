@@ -39,6 +39,7 @@ function MoveTimer({ symbol }) {
     return () => {
       clearTimeout(timer)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameCtx.player, gameCtx.underway, symbol])
 
   // update timer visual indicator
