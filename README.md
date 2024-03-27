@@ -1,70 +1,39 @@
-# Getting Started with Create React App
+# Tic React Toe
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+thanks for checking out my project!
+For a while I have been thinking about how this spin on the classic tic-tac-toe game would make for a perfect react project, so I made it!
+The game is defined by its nested smaller tic-tac-toe games and the more interesting move pattern that allows for deeper strategies and more replayability.
 
-## Available Scripts
+### Features
 
-In the project directory, you can run:
+##### Save Game
 
-### `npm start`
+Each turn saves the gamestate to your browsers local storage. Refresh the page, close your browser, come back days later and your game will still be there.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+##### Move Timer
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Think quick! You only have a limited time to make your move, otherwise a random cell will be chosen for you. The move timer can be adjusted in the settings.
 
-### `npm test`
+##### Vs. Computer
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+No one to play with? No problem, just open the settings modal and enable the "Play against computer" toggle. The computer will choose a random available valid move on its turn. The computer is still improving, and higher computer difficulties are on the roadmap.
 
-### `npm run build`
+##### Responsive Design
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This app should run great on your mobile device, tablet or ultrawide monitor.
+I did my best to design the game in a visually interesting way, with animations that respond to you and visual feedback on how the game is going.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Design
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+This app's state management is done with a reducer function that dispatches actions to a game context provider.
+You can find this in src/store/GameStateContext.jsx
 
-### `npm run eject`
+### Future Roadmap
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- dark mode 🌑
+- disable move timer
+- optimize mobile and touch events
+- customize token colour
+- customize token shape
+- Vs. computer difficulty settings
+- accidental move protection
