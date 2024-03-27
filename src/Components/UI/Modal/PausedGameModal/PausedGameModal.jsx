@@ -1,16 +1,15 @@
 // TODO: retire this component???
 // clicking on the board should unpause the game
-// page load should always start with a paused game
 
 import { useContext, useState } from "react"
 
 // context
-import GameStateContext from "../../../store/GameStateContext"
+import GameStateContext from "../../../../store/GameStateContext"
 
 // components
-import Modal from "../Modal/Modal"
-import Button from "../Button/Button"
-import Play from "../../Symbols/Play"
+import Modal from "../Modal"
+import Button from "../../Button/Button"
+import Play from "../../../Symbols/Play"
 
 // styles
 import "./PausedGameModal.scss"

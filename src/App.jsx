@@ -7,14 +7,13 @@ import Rules from "./Components/Rules/Rules"
 
 // styles
 import "./App.scss"
+import Header from "./Components/Header/Header"
 
 function App() {
   return (
     <div className="App">
-      <header>
-        <img src="/Img/tic-react-toe-logo-nobg.png" />
-      </header>
       <GameStateContextProvider>
+        <Header />
         <Main />
       </GameStateContextProvider>
       <Rules />

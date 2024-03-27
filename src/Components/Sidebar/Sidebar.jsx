@@ -4,10 +4,11 @@ import GameStateContext from "../../store/GameStateContext"
 
 import Pause from "../Symbols/Pause"
 import Play from "../Symbols/Play"
-import SettingsModal from "./Settings/SettingsModal"
-import PausedGameModal from "../UI/PausedGameModal/PausedGameModal"
+import SettingsModal from "../UI/Modal/SettingsModal/SettingsModal"
+import PausedGameModal from "../UI/Modal/PausedGameModal/PausedGameModal"
 
 import "./Sidebar.scss"
+import InfoModal from "../UI/Modal/InfoModal/InfoModal"
 
 function Sidebar() {
   const [showPause, setShowPause] = useState(false)
@@ -30,9 +31,10 @@ function Sidebar() {
   }
 
   return (
-    <div className="side-buttons">
+    <div className="game-buttons">
       {gameCtx.underway && <Pause onClick={handlePause} />}
       {!gameCtx.underway && <Play onClick={handlePlay} />}
+      <InfoModal />
       <SettingsModal />
       {showPause && <PausedGameModal />}
     </div>

@@ -132,15 +132,15 @@
 
   svg {
     aspect-ratio: 1/1;
-    width: 30px;
+    width: 50px;
     max-height: 70px;
     z-index: 1;
 
     @include sm {
-      width: 40px;
+      width: 65px;
     }
     @include md {
-      width: 70px;
+      width: 80px;
     }
     @include lg {
       width: 100px;

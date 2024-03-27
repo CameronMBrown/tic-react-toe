@@ -109,6 +109,7 @@ function gameReducer(state, action) {
     // check for minigame win or tie
     const miniGameWin = checkForWin(newGameState[bigX][bigY], state.player)
     if (miniGameWin) {
+      // FIXME: a won minigame should open the board
       resolvedMiniGames[bigX][bigY] = {
         winner: state.player,
         arrangement: WINS[miniGameWin - 1],
@@ -198,6 +199,8 @@ function gameReducer(state, action) {
         moveTimer: state.moveTimer,
       })
     )
+
+    // console.log(localStorage.getItem("gamestate")) // debug
 
     return {
       ...state,

@@ -1,22 +1,44 @@
+@import "../../../../utils/theme.scss";
+
 .rematch-modal {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 2rem 4rem;
 
   h3,
   p {
     text-align: center;
   }
 
-  .modal-buttons {
-    display: flex;
-    justify-content: space-around;
-    min-width: 40vw;
-    margin: 2rem 0 0 0;
-  }
-
   .modal-scoreboard {
-    padding: 0.5rem 0;
+    .player-name {
+      display: none;
+    }
+
+    .score {
+      display: inline-flex;
+      letter-spacing: 5px;
+      width: 100%;
+      justify-content: center;
+
+      strong {
+        margin: 0 5px;
+        font-size: 1.1em;
+      }
+    }
+
+    @include md {
+      text-align: center;
+      padding: 0.5rem 0;
+
+      .player-name {
+        display: inline;
+        margin: 0 0.5rem;
+      }
+
+      .score {
+        width: auto;
+      }
+    }
   }
 }

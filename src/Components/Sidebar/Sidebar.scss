@@ -1,12 +1,17 @@
-.side-buttons {
-  position: fixed;
+@import "../../utils/theme.scss";
+
+.game-buttons {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   top: 10px;
   right: 10px;
   z-index: 10;
+
+  @include sm {
+    flex-direction: column;
+    position: fixed;
+  }
 
   .play-icon {
     margin-left: 2px;

@@ -18,8 +18,7 @@
   line-height: 1;
   list-style: none;
   overflow: hidden;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding: 0 1rem;
   position: relative;
   text-align: left;
   text-decoration: none;
@@ -29,13 +28,17 @@
   touch-action: manipulation;
   white-space: nowrap;
   will-change: box-shadow, transform;
-  font-size: 10px;
+  font-size: 14px;
 
   @include sm {
-    font-size: 14px;
+    font-size: 18px;
   }
   @include md {
-    font-size: 18px;
+    font-size: 20px;
+  }
+  @include lg {
+    font-size: 22px;
+    padding: 0.5rem 1.5rem;
   }
 }
 

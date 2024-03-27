@@ -24,7 +24,7 @@ function PlayerArea({ symbol, initialName, isTurn }) {
 
   // add classes for win case
   if (
-    (gameCtx.win && !isTurn) || // the last move won the game
+    (gameCtx.win && !isTurn && !gameCtx.win.points) || // tic-tac-toe win
     (gameCtx.win.points &&
       !gameCtx.win.rematch &&
       gameCtx.win.player === initialName) // win by points

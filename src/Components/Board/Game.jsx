@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useState, useContext } from "react"
 import { useInView } from "react-intersection-observer"
 
 // context
@@ -19,6 +19,7 @@ import "./Game.scss"
 export default function Game() {
   const gameCtx = useContext(GameStateContext)
   const { ref, inView } = useInView({ threshold: 0.5 })
+  const [scrollPause, setScrollPause] = useState(false)
 
   // add classes depending on winning configuration
   let classes = ["board__container"]
@@ -28,9 +29,11 @@ export default function Game() {
 
   // pause the game if the user scrolls down to read the rlues etc.
   // TODO: investigate console warning thrown by this feature
-  if (inView && !gameCtx.win && !gameCtx.underway) {
+  if (inView && !gameCtx.win && !gameCtx.underway && scrollPause) {
+    setScrollPause(false)
     gameCtx.unpause()
-  } else if (!inView && gameCtx.underway) {
+  } else if (!inView && gameCtx.underway && !scrollPause) {
+    setScrollPause(true)
     gameCtx.pause()
   }
 
@@ -87,12 +90,12 @@ export default function Game() {
         <p>That round was a wash!</p>
         <div className="modal-scoreboard">
           <p>The score remains:</p>
-          <p>
-            {loadSavedPlayerName("Player 1")}{" "}
+          <p className="player-name">{loadSavedPlayerName("Player 1")}</p>
+          <div className="score">
             <strong>{gameCtx.player1Score}</strong> -{" "}
             <strong>{gameCtx.player2Score}</strong>{" "}
-            {loadSavedPlayerName("Player 2")}
-          </p>
+          </div>
+          <p className="player-name">{loadSavedPlayerName("Player 2")}</p>
         </div>
         <p>Keep playing to decide the winner</p>
       </RematchModal>

@@ -1,20 +1,22 @@
 .game-wrapper {
   grid-area: game;
   display: flex;
+  position: relative;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   aspect-ratio: 1/1;
   max-width: 900px;
   width: 100vw;
-  margin-bottom: 10%;
-
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
   @media (min-height: 1500px) {
     max-width: 1250px;
   }
 
   .postgame-btn {
-    top: -25px;
+    position: absolute;
+    top: -20px;
   }
 }
 
@@ -27,7 +29,6 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  padding: 1rem;
 }
 
 [id="minigame-00"],

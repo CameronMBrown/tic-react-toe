@@ -9,17 +9,17 @@ function Rules() {
         Rules
       </Heading>
       <div className="board-explaination">
-        <Heading headingLvl="h3">Understanding the Board</Heading>
+        <Heading headingLvl="h3">The Board</Heading>
         <p>
-          <strong>Cell: </strong>the smallest division of the board.
+          <strong>Cell: </strong>the smallest sqares that make up the board.
         </p>
         <p>
           <strong>Small Game: </strong>refers to one of the nine smaller games
           or its result.
         </p>
         <p>
-          <strong>Big Game: </strong> the overall game, usually without
-          considering cells, only the state of "small" games.
+          <strong>Big Game: </strong> the overall game, without considering
+          cells, only the state of "small" games.
         </p>
         <p>
           <strong>Token: </strong>the symbol that represents your past moves,
@@ -31,14 +31,25 @@ function Rules() {
         </p>
       </div>
       <Heading headingLvl="h3">Moves</Heading>
-      <Heading headingLvl="h4">The Basic Pattern</Heading>
       <p>
-        Each turn, you should choose a cell within a small game to place your
-        token, with the goal of working toward a tic-tac-toe.
+        Players will alternate turns placing tokens in the cells of the board.
       </p>
       <p>
-        But think ahead! Which game cell you chose to play in will have an
-        effect on the next player's turn.
+        Your goal should be to arrange your tokens in "tic-tac-toe" arrangement,
+        and prevent your opponent from doing the same.
+      </p>
+      <p>
+        When a tic-tac-toe is achieved, the small game is becomes{" "}
+        <i>resolved</i>. This will cause the small game to disappear and a
+        larger token belonging to the small game winner, is put in its place on
+        the "big" game.
+      </p>
+      <Heading headingLvl="h4">The Basic Pattern</Heading>
+      <p>
+        Think ahead! The game cell you choose on your turn will have an effect
+        on the next player's turn. The position of your turn's cell will be the
+        same as the position of the small game your opponents' next move must be
+        made in.
       </p>
       <p>
         For example, there are nine center cells in the game (the cell in the
@@ -47,28 +58,17 @@ function Rules() {
         the available cells that make up the center "small" game.
       </p>
       <p>
+        There is one exception to this rule, however. If the pattern would
+        normally require you to make a move in a small game that is already
+        resolved, then the board is open and you can choose any unfilled cell.
+      </p>
+      <p>
         Also remember to think quick! Each player only has a limited time to
-        make their move on their turn. Otherwise, the game will choose a random
+        make a move on their turn. Otherwise, the game will choose a random
         available move for you. The move timer can be adjusted in the settings.
       </p>
-      <Heading headingLvl="h4">Exceptions</Heading>
-      <p>
-        Whenever there is an exception to the basic move pattern, the following
-        player is not restricted, and can choose any cell on the board, then the
-        pattern resumes.
-      </p>
-      <p>These exceptions include: </p>
-      <ul>
-        <li>
-          A player has just made a move that <i>wins</i> a small game.
-        </li>
-        <li>
-          The pattern would normally require you to make a move in a small game
-          that is already resolved.
-        </li>
-      </ul>
       <div className="ways-to-win">
-        <Heading headingLvl="h3">Ways to Win</Heading>
+        <Heading headingLvl="h3">How to Win</Heading>
         <Heading headingLvl="h4">Tic-Tac-Toe</Heading>
         <p>
           Regardless of the current score, if a player that achieves a

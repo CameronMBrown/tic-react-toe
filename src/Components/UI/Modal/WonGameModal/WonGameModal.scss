@@ -1,18 +1,26 @@
+@import "../../../../utils/theme.scss";
+
 .won-game-modal {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 2rem 4rem;
 
   h3,
   p {
     text-align: center;
   }
 
-  .modal-buttons {
-    display: flex;
-    justify-content: space-around;
-    min-width: 40vw;
-    margin: 2rem 0 0 0;
+  h3 {
+    font-size: 26px;
+
+    @include sm {
+      font-size: 30px;
+    }
+    @include md {
+      font-size: 34px;
+    }
+    @include lg {
+      font-size: 38px;
+    }
   }
 }

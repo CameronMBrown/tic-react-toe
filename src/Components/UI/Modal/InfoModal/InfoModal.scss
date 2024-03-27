@@ -1,0 +1,37 @@
+@import "../../../../utils/theme.scss";
+
+.info-modal {
+  h3 {
+    font-size: 1em;
+  }
+
+  p {
+    font-size: 0.8em;
+  }
+
+  @include sm {
+    h3 {
+      font-size: 1.3em;
+    }
+
+    p {
+      font-size: 1em;
+    }
+  }
+
+  .linkedin-link,
+  .github-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: #36395a;
+  }
+
+  .linkedin-icon,
+  .github-icon {
+    width: 30px;
+    margin-right: 10px;
+    aspect-ratio: 1/1;
+  }
+}

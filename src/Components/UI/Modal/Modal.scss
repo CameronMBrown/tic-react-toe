@@ -1,5 +1,7 @@
+@import "../../../utils/theme.scss";
+
 .modal {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -9,6 +11,13 @@
   background-color: #ffffff;
   z-index: 5;
   animation: spawnModal 0.3s linear 1;
+
+  @include sm {
+    padding: 1rem 2rem;
+  }
+  @include md {
+    padding: 2rem 4rem;
+  }
 
   @keyframes spawnModal {
     0% {
@@ -25,9 +34,35 @@
     background-color: rgba(0, 0, 0, 0.55);
   }
 
+  .close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    height: 35px;
+    aspect-ratio: 1/1;
+    padding: 0.2rem;
+
+    .X {
+      height: 10px;
+      width: 10px;
+    }
+  }
+
   p,
   label {
     font-family: "JetBrains Mono", monospace;
     margin-top: 5px;
+  }
+
+  .modal-buttons {
+    display: flex;
+    justify-content: space-around;
+    gap: 15px;
+    min-width: 40vw;
+    margin: 2rem 0 0 0;
   }
 }

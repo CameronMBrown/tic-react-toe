@@ -15,21 +15,6 @@
   justify-content: center;
 }
 
-header {
-  position: absolute;
-  display: flex;
-  justify-self: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 900px;
-  top: 40px;
-
-  img {
-    max-width: 250px;
-    padding: 1rem;
-  }
-}
-
 .top-section-wrapper {
   grid-area: top-section;
   padding-top: 50px;

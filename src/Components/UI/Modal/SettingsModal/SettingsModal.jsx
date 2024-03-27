@@ -1,14 +1,14 @@
 import React, { useCallback, useContext, useState } from "react"
 
 // context
-import GameStateContext from "../../../store/GameStateContext"
+import GameStateContext from "../../../../store/GameStateContext"
 
 // components
 import Setting from "./Setting/Setting"
-import Button from "../../UI/Button/Button"
-import Gear from "../../Symbols/Gear"
-import XSymbol from "../../Symbols/XSymbol"
-import Modal from "../../UI/Modal/Modal"
+import Button from "../../Button/Button"
+import Gear from "../../../Symbols/Gear"
+import XSymbol from "../../../Symbols/XSymbol"
+import Modal from "../Modal"
 
 // styles
 import "./SettingsModal.scss"
@@ -24,6 +24,7 @@ export default function SettingsModal() {
   })
   let modalContent
 
+  // opening the settings pauses an underway game
   const showSettingsModal = () => {
     if (showSettings) return
 
@@ -31,6 +32,7 @@ export default function SettingsModal() {
     gameCtx.pause()
   }
 
+  // closing the settings resumes an underway game
   const closeSettingsModal = () => {
     if (!showSettings) return
     else setShowSettings(false)

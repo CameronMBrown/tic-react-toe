@@ -1,15 +1,4 @@
-@import "../../../utils/theme.scss";
-
-.pause-icon {
-  padding: 10px;
-  width: 50px;
-
-  //TODO: hover state
-}
-
-.play-icon {
-  padding: 5px;
-}
+@import "../../../../utils/theme.scss";
 
 .paused-modal {
   display: flex;

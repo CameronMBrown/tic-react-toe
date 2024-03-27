@@ -1,4 +1,4 @@
-@import "../../../utils/theme.scss";
+@import "../../../../utils/theme.scss";
 
 .gear-icon {
   padding: 10px;
@@ -14,23 +14,6 @@
   }
   @include md {
     font-size: 20px;
-  }
-  .close-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    position: absolute;
-    right: 8px;
-    top: 8px;
-    height: 35px;
-    aspect-ratio: 1/1;
-    padding: 0.2rem;
-
-    .X {
-      height: 10px;
-      width: 10px;
-    }
   }
 
   .settings-title {
