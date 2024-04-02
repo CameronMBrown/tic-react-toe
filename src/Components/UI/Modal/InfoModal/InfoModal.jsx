@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 
 // context
 import GameStateContext from "../../../../store/GameStateContext"
@@ -17,6 +17,11 @@ import LinkedIn from "../../../Symbols/LinkedIn"
 function InfoModal() {
   const gameCtx = useContext(GameStateContext)
   const [showInfo, setShowInfo] = useState(false)
+
+  // show info modal on first visit
+  useEffect(() => {
+    if (!localStorage.getItem("gamestate")) showInfoModal()
+  }, [])
 
   // opening the info modal pauses an underway game
   const showInfoModal = () => {
@@ -51,12 +56,12 @@ function InfoModal() {
               so I made it!
             </p>
             <p>
-              For a more detailed explaination, checkout my github and the
+              For a more detailed explanation, checkout my github and the
               README.
             </p>
             <p>
               I am currently looking for work in the web-development space, find
-              me on LinkedIn and lets talk about how I can help with your
+              me on LinkedIn and let's talk about how I can help with your
               project.
             </p>
           </div>

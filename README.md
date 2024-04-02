@@ -1,5 +1,7 @@
 # Tic React Toe
 
+https://tic-react-toe.com/
+
 thanks for checking out my project!
 For a while I have been thinking about how this spin on the classic tic-tac-toe game would make for a perfect react project, so I made it!
 The game is defined by its nested smaller tic-tac-toe games and the more interesting move pattern that allows for deeper strategies and more replayability.
@@ -35,5 +37,6 @@ You can find this in src/store/GameStateContext.jsx
 - optimize mobile and touch events
 - customize token colour
 - customize token shape
-- Vs. computer difficulty settings
+- vs. computer difficulty settings
 - accidental move protection
+- restore default settings
