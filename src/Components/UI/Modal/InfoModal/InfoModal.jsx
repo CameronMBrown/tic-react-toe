@@ -21,6 +21,7 @@ function InfoModal() {
   // show info modal on first visit
   useEffect(() => {
     if (!localStorage.getItem("gamestate")) showInfoModal()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // opening the info modal pauses an underway game
