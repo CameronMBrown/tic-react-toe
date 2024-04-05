@@ -1,6 +1,9 @@
-import React from "react"
+import React, { useContext } from "react"
+import ThemeContext from "../../store/ThemeContext"
 
 function Info({ onClick }) {
+  const themeCtx = useContext(ThemeContext)
+
   const clickHandler = () => {
     onClick()
   }
@@ -9,7 +12,7 @@ function Info({ onClick }) {
     <svg
       onClick={clickHandler}
       className="info-icon"
-      fill="#000000"
+      fill={themeCtx.darkMode ? "#FFFFFF" : "#000000"}
       version="1.1"
       id="Capa_1"
       viewBox="0 0 416.979 416.979"

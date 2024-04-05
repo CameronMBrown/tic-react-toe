@@ -28,6 +28,16 @@ export function loadSavedGame(fallback = structuredClone(DEFAULT_GAME_DATA)) {
 }
 
 /**
+ * If the user has set a dark/light theme, loads that theme value on pageload
+ * @returns true if dark mode has been set by the user previously
+ */
+export function loadSavedTheme() {
+  if (localStorage.getItem("darkMode")) return localStorage.getItem("darkMode")
+
+  return false
+}
+
+/**
  * if there is a localStorage record, ie. the player has set a custom name, return it
  *
  * @param {String} initialName either "Player 1" or "Player 2"

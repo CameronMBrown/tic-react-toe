@@ -15,9 +15,11 @@ import { loadSavedPlayerName } from "../../utils/utils"
 
 // styles
 import "./Game.scss"
+import ThemeContext from "../../store/ThemeContext"
 
 export default function Game() {
   const gameCtx = useContext(GameStateContext)
+  const themeCtx = useContext(ThemeContext)
   const { ref, inView } = useInView({ threshold: 0.5 })
   const [scrollPause, setScrollPause] = useState(false)
 
@@ -28,7 +30,7 @@ export default function Game() {
   }
 
   // pause the game if the user scrolls down to read the rlues etc.
-  // TODO: investigate console warning thrown by this feature
+  // FIXME: investigate console warning thrown by this feature
   if (inView && !gameCtx.win && !gameCtx.underway && scrollPause) {
     setScrollPause(false)
     gameCtx.unpause()
@@ -103,7 +105,10 @@ export default function Game() {
   }
 
   return (
-    <div ref={ref} className="game-wrapper">
+    <div
+      ref={ref}
+      className={`game-wrapper ${themeCtx.darkMode ? "dark" : "light"}`}
+    >
       {modalContent}
       {gameCtx.win && !gameCtx.win.rematch && (
         <Button className="postgame-btn" action={gameCtx.reset}>

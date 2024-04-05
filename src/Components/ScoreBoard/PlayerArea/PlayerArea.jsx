@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useContext } from "react"
 
 // context
 import GameStateContext from "../../../store/GameStateContext"
+import ThemeContext from "../../../store/ThemeContext"
 
 // components
 import MoveTimer from "../MoveTimer/MoveTimer"
@@ -13,6 +14,7 @@ import "./PlayerArea.scss"
 
 function PlayerArea({ symbol, initialName, isTurn }) {
   const gameCtx = useContext(GameStateContext)
+  const themeCtx = useContext(ThemeContext)
   const [name, setName] = useState(
     gameCtx.vsComputer && symbol === "O" ? "Computer" : initialName
   )
@@ -61,8 +63,12 @@ function PlayerArea({ symbol, initialName, isTurn }) {
     }
   }
 
+  // TODO: do not enable name edit for computer player - always named "computer"
   let nameContent = (
-    <div className="player-name-wrapper" onClick={() => setIsEditing(true)}>
+    <div
+      className={`player-name-wrapper ${themeCtx.darkMode ? "dark" : ""}`}
+      onClick={() => setIsEditing(true)}
+    >
       <p className="player-name">{name}</p>
       <p className="name-prompt">Change</p>
     </div>
@@ -73,7 +79,7 @@ function PlayerArea({ symbol, initialName, isTurn }) {
       <input
         ref={input}
         type="text"
-        className="player-name"
+        className={`player-name ${themeCtx.darkMode ? "dark" : ""}`}
         value={name}
         onBlur={handleFinishEditing}
         maxLength="50"

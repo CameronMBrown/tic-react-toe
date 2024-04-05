@@ -12,7 +12,7 @@
   color: #36395a;
   cursor: pointer;
   display: inline-flex;
-  font-family: "JetBrains Mono", monospace;
+  font-family: $monospaceFont;
   height: 48px;
   justify-content: center;
   line-height: 1;
@@ -40,20 +40,27 @@
     font-size: 22px;
     padding: 0.5rem 1.5rem;
   }
-}
 
-.btn:focus {
-  box-shadow: #d6d6e7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
-    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
-}
+  &:focus {
+    box-shadow: #d6d6e7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
+      rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+  }
 
-.btn:hover {
-  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
-    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
-  transform: translateY(-2px);
-}
+  &:hover {
+    box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+      rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+    transform: translateY(-2px);
+  }
 
-.btn:active {
-  box-shadow: #d6d6e7 0 3px 7px inset;
-  transform: translateY(2px);
+  &:active {
+    box-shadow: #d6d6e7 0 3px 7px inset;
+    transform: translateY(2px);
+  }
+
+  &.dark {
+    background-color: #262626;
+    color: $whiteText;
+    box-shadow: rgba(162, 167, 151, 0.4) 0 2px 4px,
+      rgba(162, 167, 151, 0.3) 0 7px 13px -3px, #292918 0 -3px 0 inset;
+  }
 }

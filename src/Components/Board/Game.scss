@@ -18,6 +18,15 @@
     position: absolute;
     top: -20px;
   }
+
+  &.light [id*="minigame"],
+  &.light [id*="cell"] {
+    border-color: black;
+  }
+  &.dark [id*="minigame"],
+  &.dark [id*="cell"] {
+    border-color: white;
+  }
 }
 
 .board__container {
@@ -33,57 +42,57 @@
 
 [id="minigame-00"],
 [id$="cell-00"] {
-  border-bottom: 2px solid black;
-  border-right: 2px solid black;
+  border-bottom: 2px solid;
+  border-right: 2px solid;
 }
 
 [id="minigame-01"],
 [id$="cell-01"] {
-  border-bottom: 2px solid black;
-  border-left: 2px solid black;
-  border-right: 2px solid black;
+  border-bottom: 2px solid;
+  border-left: 2px solid;
+  border-right: 2px solid;
 }
 
 [id="minigame-02"],
 [id$="cell-02"] {
-  border-bottom: 2px solid black;
-  border-left: 2px solid black;
+  border-bottom: 2px solid;
+  border-left: 2px solid;
 }
 
 [id="minigame-10"],
 [id$="cell-10"] {
-  border-top: 2px solid black;
-  border-bottom: 2px solid black;
-  border-right: 2px solid black;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-right: 2px solid;
 }
 
 [id="minigame-11"],
 [id$="cell-11"] {
-  border: 2px solid black;
+  border: 2px solid;
 }
 
 [id="minigame-12"],
 [id$="cell-12"] {
-  border-top: 2px solid black;
-  border-bottom: 2px solid black;
-  border-left: 2px solid black;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-left: 2px solid;
 }
 
 [id="minigame-20"],
 [id$="cell-20"] {
-  border-top: 2px solid black;
-  border-right: 2px solid black;
+  border-top: 2px solid;
+  border-right: 2px solid;
 }
 
 [id="minigame-21"],
 [id$="cell-21"] {
-  border-top: 2px solid black;
-  border-left: 2px solid black;
-  border-right: 2px solid black;
+  border-top: 2px solid;
+  border-left: 2px solid;
+  border-right: 2px solid;
 }
 
 [id="minigame-22"],
 [id$="cell-22"] {
-  border-top: 2px solid black;
-  border-left: 2px solid black;
+  border-top: 2px solid;
+  border-left: 2px solid;
 }

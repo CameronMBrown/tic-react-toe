@@ -1,7 +1,8 @@
-import React, { useCallback, useContext, useState } from "react"
+import { useCallback, useContext, useState } from "react"
 
 // context
 import GameStateContext from "../../../../store/GameStateContext"
+import ThemeContext from "../../../../store/ThemeContext"
 
 // components
 import Setting from "./Setting/Setting"
@@ -15,6 +16,7 @@ import "./SettingsModal.scss"
 
 export default function SettingsModal() {
   const gameCtx = useContext(GameStateContext)
+  const themeCtx = useContext(ThemeContext)
   const [showSettings, setShowSettings] = useState(false)
   const [confirmChange, setConfirmChange] = useState(false)
   const [settings, setSettings] = useState({
@@ -65,6 +67,15 @@ export default function SettingsModal() {
         </Button>
         <h3 className="settings-title">Settings</h3>
         <form className="settings-form">
+          <Setting
+            type="checkbox"
+            name="darkMode"
+            text="Dark Mode"
+            value={themeCtx.darkMode}
+            onChange={(e) => {
+              themeCtx.handleChangeTheme(e.target.checked)
+            }}
+          />
           <Setting
             type="checkbox"
             name="vsComputer"

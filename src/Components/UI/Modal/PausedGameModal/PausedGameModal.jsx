@@ -5,6 +5,7 @@ import { useContext, useState } from "react"
 
 // context
 import GameStateContext from "../../../../store/GameStateContext"
+import ThemeContext from "../../../../store/ThemeContext"
 
 // components
 import Modal from "../Modal"
@@ -17,6 +18,7 @@ import "./PausedGameModal.scss"
 function PausedGameModal() {
   const [showModal, setShowModal] = useState(true)
   const gameCtx = useContext(GameStateContext)
+  const themeCtx = useContext(ThemeContext)
 
   const handleUnpauseGame = () => {
     setShowModal(false)
@@ -27,10 +29,10 @@ function PausedGameModal() {
 
   return (
     <Modal className="paused-modal" open={showModal}>
-      <h3>Game Paused</h3>
+      <h3 className={themeCtx.darkMode ? "dark" : ""}>Game Paused</h3>
       <Button className="play-btn" action={handleUnpauseGame}>
         <strong>Play</strong>
-        <Play solid={false} />
+        <Play solid={false} fill={themeCtx.darkMode ? "#FFFFFF" : "#000000"} />
       </Button>
     </Modal>
   )

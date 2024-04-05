@@ -1,5 +1,3 @@
-// TODO: breakpoint variables
-
 // Small tablets and large smartphones (landscape view)
 $screen-sm-min: 576px;
 // Small tablets (portrait view)
@@ -40,6 +38,15 @@ $screen-xl-min: 1200px;
   }
 }
 
+// fonts
+$monospaceFont: "JetBrains Mono", monospace;
+
+// colours
+$whiteText: #efefef;
+$darkThemeBg: #141414;
+$darkModal: #1a1a1a;
+
+// animations
 @mixin placeToken {
   animation: placement 0.15s linear 1;
 

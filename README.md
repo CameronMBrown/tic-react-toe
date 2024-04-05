@@ -15,6 +15,7 @@ Each turn saves the gamestate to your browsers local storage. Refresh the page, 
 ##### Move Timer
 
 Think quick! You only have a limited time to make your move, otherwise a random cell will be chosen for you. The move timer can be adjusted in the settings.
+The timer is smart, if the game is not within the browsers' viewport, the game will pause itself behind the scenes.
 
 ##### Vs. Computer
 

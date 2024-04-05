@@ -1,4 +1,17 @@
+import { useContext } from "react"
+import ThemeContext from "../../store/ThemeContext"
+
 function Play({ fill = "#000000", solid = true, onClick }) {
+  const themeCtx = useContext(ThemeContext)
+
+  let stroke = "#000000"
+  if (fill === "#000000" && solid) {
+    fill = themeCtx.darkMode ? "#FFFFFF" : "#000000"
+  } else if (!solid) {
+    stroke = fill
+    fill = "none"
+  }
+
   return (
     <svg
       viewBox="0 0 72 72"
@@ -20,8 +33,8 @@ function Play({ fill = "#000000", solid = true, onClick }) {
         <g id="skin"></g> <g id="skin-shadow"></g>
         <g id="line">
           <path
-            fill={solid ? "#000000" : "none"}
-            stroke="#000000"
+            fill={fill}
+            stroke={stroke}
             strokeLinejoin="round"
             strokeMiterlimit="10"
             strokeWidth="2"

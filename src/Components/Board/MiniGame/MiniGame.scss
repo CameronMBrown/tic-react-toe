@@ -54,6 +54,10 @@
   opacity: 1;
   transition: opacity 0.3s;
 
+  &.dark {
+    background-color: #141414;
+  }
+
   &:hover {
     opacity: 0;
   }

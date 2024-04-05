@@ -1,5 +1,9 @@
-import ScoreBoard from "./ScoreBoard/ScoreBoard"
-import Board from "./Board/Game"
+// components
+import ScoreBoard from "../ScoreBoard/ScoreBoard"
+import Board from "../Board/Game"
+
+// styles
+import "./Main.scss"
 
 function Main() {
   return (

@@ -12,6 +12,10 @@
   z-index: 5;
   animation: spawnModal 0.3s linear 1;
 
+  &.dark {
+    background-color: #1a1a1a;
+  }
+
   @include sm {
     padding: 1rem 2rem;
   }
@@ -64,5 +68,22 @@
     gap: 15px;
     min-width: 40vw;
     margin: 2rem 0 0 0;
+  }
+
+  &.dark {
+    &::backdrop {
+      background-color: rgba(0, 0, 0, 0.75);
+    }
+
+    h2,
+    h3,
+    h4 {
+      color: #ffffff;
+    }
+
+    label,
+    p {
+      color: $whiteText;
+    }
   }
 }

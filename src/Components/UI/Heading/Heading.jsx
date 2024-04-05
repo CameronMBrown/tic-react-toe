@@ -1,8 +1,16 @@
+import { useContext } from "react"
+
+// context
+import ThemeContext from "../../../store/ThemeContext"
+
+// styles
 import "./Heading.scss"
 
 function Heading({ headingLvl = "h2", className, children }) {
+  const themeCtx = useContext(ThemeContext)
+
   return (
-    <div className="heading-wrapper">
+    <div className={`heading-wrapper ${themeCtx.darkMode ? "dark" : ""}`}>
       {headingLvl === "h1" && (
         <h1 className={`heading ${className}`}>{children}</h1>
       )}

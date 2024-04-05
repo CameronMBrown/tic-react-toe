@@ -1,4 +1,12 @@
+import { useContext } from "react"
+import ThemeContext from "../../store/ThemeContext"
+
 const XSymbol = ({ fill = "#000000", classes = [] }) => {
+  const themeCtx = useContext(ThemeContext)
+
+  if (fill === "#000000") {
+    fill = themeCtx.darkMode ? "#FFFFFF" : "#000000"
+  }
   classes.push("X")
 
   return (

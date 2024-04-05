@@ -48,6 +48,10 @@
     transition: 0.3s ease-in-out;
     z-index: 1;
 
+    &.dark {
+      color: #efefef;
+    }
+
     &:hover {
       .player-name {
         opacity: 0;

@@ -6,23 +6,3 @@
   margin: 0;
   padding: 0;
 }
-
-.App {
-  background-color: white;
-  display: grid;
-  grid-template-areas: "top-section" "game" "rules";
-  grid-template-rows: min-content min-content auto;
-  justify-content: center;
-}
-
-.top-section-wrapper {
-  grid-area: top-section;
-  padding-top: 50px;
-  display: flex;
-  justify-content: center;
-}
-
-h3 {
-  margin-bottom: 1rem;
-  font-size: 2rem;
-}

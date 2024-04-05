@@ -1,9 +1,15 @@
+@import "../../utils/theme.scss";
+
 .rules-section {
   font-family: "JetBrains Mono", monospace;
   max-width: 800px;
   width: 95%;
   justify-self: center;
   padding-bottom: 10%;
+
+  &.dark {
+    color: $whiteText;
+  }
 
   h2 {
     font-size: 3rem;

@@ -2,6 +2,7 @@ import { useContext } from "react"
 
 // context
 import GameStateContext from "../../../store/GameStateContext"
+import ThemeContext from "../../../store/ThemeContext"
 
 // components
 import Cell from "../Cell/Cell"
@@ -16,6 +17,7 @@ import "./MiniGame.scss"
 
 export default function MiniGame({ gameID }) {
   const gameCtx = useContext(GameStateContext)
+  const themeCtx = useContext(ThemeContext)
 
   const parentX = parseInt(gameID.substr(-2, 1))
   const parentY = parseInt(gameID.substr(-1))
@@ -44,6 +46,7 @@ export default function MiniGame({ gameID }) {
     }
   } else if (gameCtx.win.points) {
     // TODO: add minigame styles for win by points
+    // highlight winners minigame wins with vibrant colour or animation?
   }
 
   return (
@@ -63,12 +66,12 @@ export default function MiniGame({ gameID }) {
         })}
       </div>
       {isResolved === "X" && (
-        <div className="big-token">
+        <div className={`big-token ${themeCtx.darkMode ? "dark" : ""}`}>
           <XSymbol classes={["animate"]} />
         </div>
       )}
       {isResolved === "O" && (
-        <div className="big-token">
+        <div className={`big-token ${themeCtx.darkMode ? "dark" : ""}`}>
           <OSymbol classes={["animate"]} />
         </div>
       )}

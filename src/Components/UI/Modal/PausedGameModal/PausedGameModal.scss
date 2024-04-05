@@ -17,6 +17,10 @@
     text-align: center;
     font-size: 16px;
 
+    &.dark {
+      color: $whiteText;
+    }
+
     @include sm {
       font-size: 20px;
     }

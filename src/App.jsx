@@ -2,22 +2,26 @@
 import { GameStateContextProvider } from "./store/GameStateContext"
 
 // components
-import Main from "./Components/Main"
+import Background from "./Components/Background/Background"
+import Main from "./Components/Main/Main"
 import Rules from "./Components/Rules/Rules"
 
 // styles
 import "./App.scss"
 import Header from "./Components/Header/Header"
+import { ThemeContextProvider } from "./store/ThemeContext"
 
 function App() {
   return (
-    <div className="App">
-      <GameStateContextProvider>
-        <Header />
-        <Main />
-      </GameStateContextProvider>
-      <Rules />
-    </div>
+    <ThemeContextProvider>
+      <Background>
+        <GameStateContextProvider>
+          <Header />
+          <Main />
+        </GameStateContextProvider>
+        <Rules />
+      </Background>
+    </ThemeContextProvider>
   )
 }
 

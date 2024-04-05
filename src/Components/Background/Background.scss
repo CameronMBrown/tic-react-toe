@@ -1,0 +1,11 @@
+.App {
+  background-color: "#FFFFFF";
+  display: grid;
+  grid-template-areas: "top-section" "game" "rules";
+  grid-template-rows: min-content min-content auto;
+  justify-content: center;
+
+  &.dark {
+    background-color: #141414;
+  }
+}

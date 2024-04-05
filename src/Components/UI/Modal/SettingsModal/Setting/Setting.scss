@@ -1,3 +1,5 @@
+@import "../../../../../utils/theme.scss";
+
 .setting {
   display: flex;
   position: relative;
@@ -108,4 +110,11 @@
       var(--button-width) - var(--toggle-wider) - var(--button-toggle-offset)
     )
   );
+}
+
+.dark {
+  input[type="number"] {
+    color: $whiteText;
+    background-color: $darkModal;
+  }
 }

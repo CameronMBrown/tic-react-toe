@@ -1,10 +1,22 @@
-import "./Rules.scss"
+import { useContext } from "react"
 
+// context
+import ThemeContext from "../../store/ThemeContext"
+
+// components
 import Heading from "../UI/Heading/Heading"
 
+// styles
+import "./Rules.scss"
+
 function Rules() {
+  const themeCtx = useContext(ThemeContext)
+
   return (
-    <section id="rules-section" className="rules-section">
+    <section
+      id="rules-section"
+      className={`rules-section ${themeCtx.darkMode ? "dark" : ""}`}
+    >
       <Heading headingLvl="h2" className="rules-title">
         Rules
       </Heading>
@@ -58,9 +70,9 @@ function Rules() {
         the available cells that make up the center "small" game.
       </p>
       <p>
-        There is one exception to this rule, however. If the pattern would
-        normally require you to make a move in a small game that is already
-        resolved, then the board is open and you can choose any unfilled cell.
+        There is one exception to this p, however. If the pattern would normally
+        require you to make a move in a small game that is already resolved,
+        then the board is open and you can choose any unfilled cell.
       </p>
       <p>
         Also remember to think quick! Each player only has a limited time to
