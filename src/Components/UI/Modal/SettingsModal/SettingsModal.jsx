@@ -1,4 +1,4 @@
-import { useCallback, useContext, useState } from "react"
+import { useCallback, useContext, useState, useEffect } from "react"
 
 // context
 import GameStateContext from "../../../../store/GameStateContext"
@@ -22,9 +22,19 @@ export default function SettingsModal() {
   const [settings, setSettings] = useState({
     vsComputer: gameCtx.vsComputer,
     pointsToWin: gameCtx.pointsToWin,
-    moveTimer: gameCtx.moveTimer,
+    moveTimer: gameCtx.moveTimer / 1000,
   })
   let modalContent
+
+  // whenever the modal is opened, display the current settings
+  useEffect(() => {
+    setSettings({
+      vsComputer: gameCtx.vsComputer,
+      pointsToWin: gameCtx.pointsToWin,
+      moveTimer: gameCtx.moveTimer / 1000,
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showSettings])
 
   // opening the settings pauses an underway game
   const showSettingsModal = () => {
@@ -42,10 +52,33 @@ export default function SettingsModal() {
     if (!gameCtx.win) gameCtx.unpause()
   }
 
+  // increment setting value without re-rendering
   const onIncrement = useCallback((setting, newValue) => {
     setSettings((prev) => ({ ...prev, [setting]: newValue }))
   }, [])
 
+  // ask user for confirmation if changing settings while a game is ongoing
+  const confirmOrClose = () => {
+    console.log(gameCtx.areNewSettings(settings))
+    console.log(settings)
+
+    if (gameCtx.areNewSettings(settings)) {
+      if (gameCtx.isNewGame()) {
+        // user changed settings at an inconsequential time
+        handleSaveSettings()
+      } else {
+        // user changed settings during an ongoing game
+        setConfirmChange({
+          message: "The game must be reset for the settings to take effect.",
+        })
+      }
+    } else {
+      // user saved without changing any settings
+      setShowSettings(false)
+    }
+  }
+
+  // close the modal and update game settings context
   const handleSaveSettings = () => {
     setShowSettings(false)
     setConfirmChange(false)
@@ -54,7 +87,7 @@ export default function SettingsModal() {
     gameCtx.updateSettings({
       vsComputer: settings.vsComputer,
       pointsToWin: settings.pointsToWin,
-      moveTimer: settings.moveTimer,
+      moveTimer: settings.moveTimer * 1000,
     })
   }
 
@@ -105,31 +138,23 @@ export default function SettingsModal() {
             type="number"
             name="moveTimer"
             text="Move Timer (seconds)"
-            value={settings.moveTimer / 1000}
+            value={settings.moveTimer}
             onIncrement={onIncrement}
             onChange={(e) => {
               if (e.target.value > 0) {
                 setSettings((prev) => ({
                   ...prev,
-                  moveTimer: e.target.value * 1000,
+                  moveTimer: e.target.value,
                 }))
               }
             }}
           />
           <div className="buttons-area">
-            <Button
-              type="button"
-              action={() =>
-                setConfirmChange({
-                  message:
-                    "The game must be reset for the settings to take effect.",
-                })
-              }
-            >
-              Save
-            </Button>
             <Button type="button" action={() => setConfirmChange(true)}>
               Reset Game
+            </Button>
+            <Button type="button" action={() => confirmOrClose()}>
+              Save
             </Button>
           </div>
         </form>
