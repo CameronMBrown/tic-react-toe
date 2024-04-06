@@ -41,6 +41,8 @@ export default function Cell({ cellID, parentX, parentY }) {
     if (isFilled) return
     // no new moves allowed on won game
     if (gameCtx.win) return
+    // do not allow user-submitted moves on computer's turn
+    if (gameCtx.vsComputer && gameCtx.player === "O") return
 
     gameCtx.insert(parentX, parentY, Xpos, Ypos)
   }
