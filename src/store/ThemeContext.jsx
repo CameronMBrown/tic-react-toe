@@ -1,8 +1,5 @@
 import { createContext, useState } from "react"
 
-// util
-import { loadSavedTheme } from "../utils/utils"
-
 //TODO: customize token colour
 //TODO: customize token shape
 const ThemeContext = createContext({
@@ -10,7 +7,9 @@ const ThemeContext = createContext({
 })
 
 export function ThemeContextProvider({ children }) {
-  const [darkMode, setDarkMode] = useState(loadSavedTheme())
+  const [darkMode, setDarkMode] = useState(
+    JSON.parse(localStorage.getItem("darkMode"))
+  )
 
   const themeContext = {
     darkMode,

@@ -28,16 +28,6 @@ export function loadSavedGame(fallback = structuredClone(DEFAULT_GAME_DATA)) {
 }
 
 /**
- * If the user has set a dark/light theme, loads that theme value on pageload
- * @returns true if dark mode has been set by the user previously
- */
-export function loadSavedTheme() {
-  if (localStorage.getItem("darkMode")) return localStorage.getItem("darkMode")
-
-  return false
-}
-
-/**
  * if there is a localStorage record, ie. the player has set a custom name, return it
  *
  * @param {String} initialName either "Player 1" or "Player 2"
@@ -90,7 +80,7 @@ export function checkForWin(game, player) {
 }
 
 /**
- * Expects a minigame array, returns true if that game is completely populated.
+ * Expects a minigame array, returns true if that array is completely populated.
  * Does not check if the game is won, only if it is filled.
  * @param {Array} miniGame
  */
@@ -137,10 +127,30 @@ export function resolveMiniGames(board) {
 }
 
 /**
+ * When passed the gamestate array, returns true if any moves have been made
+ *
+ * @param {Array} game
+ * @returns {Boolean}
+ */
+export function isInProgress(game) {
+  for (const bigRow of game) {
+    for (const bigCell of bigRow) {
+      for (const miniRow of bigCell) {
+        for (const cell of miniRow) {
+          if (cell !== " ") return true
+        }
+      }
+    }
+  }
+
+  return false
+}
+
+/**
  * Use this function to check if the game has any remaining playable moves
  *
  * @param {Array} minigames
- * @returns {Bool} - true if there are no playable moves
+ * @returns {Bool} true if there are no playable moves
  */
 export function isGameFinished(minigames) {
   for (const row of minigames) {

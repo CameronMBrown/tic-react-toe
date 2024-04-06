@@ -12,6 +12,7 @@ import {
   checkForWin,
   isCatsGame,
   isGameFinished,
+  isInProgress,
   loadSavedGame,
 } from "../utils/utils"
 
@@ -288,6 +289,8 @@ export function GameStateContextProvider({ children }) {
     pause,
     unpause,
     updateSettings,
+    areNewSettings,
+    isNewGame,
   }
 
   function insert(bigX, bigY, miniX, miniY) {
@@ -353,8 +356,29 @@ export function GameStateContextProvider({ children }) {
     dispatchGameAction({ type: "UNPAUSE" })
   }
 
+  function areNewSettings(settings) {
+    console.log(
+      gameContext.vsComputer,
+      gameContext.pointsToWin,
+      gameContext.moveTimer
+    )
+
+    if (settings.vsComputer !== game.vsComputer) return true
+    if (settings.pointsToWin !== game.pointsToWin) return true
+    if (settings.moveTimer * 1000 !== game.moveTimer) return true
+
+    return false
+  }
+
   function updateSettings(settings) {
     dispatchGameAction({ type: "UPDATE_GAME_SETTINGS", settings })
+  }
+
+  function isNewGame() {
+    if (game.player1Score > 0 || game.player2Score > 0) return false
+    if (isInProgress(game.board)) return false
+
+    return true
   }
 
   return (
