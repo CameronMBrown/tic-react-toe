@@ -67,24 +67,30 @@ function InfoModal() {
             </p>
           </div>
           <div className="modal-buttons">
-            <a
-              className="link linkedin-link"
-              href="https://www.linkedin.com/in/cameronmagyarbrown/"
+            <Button
+              className="linkedin-btn"
+              action={() =>
+                window.open(
+                  "https://www.linkedin.com/in/cameronmagyarbrown/",
+                  "_blank"
+                )
+              }
             >
-              <Button className="linkedin-btn">
-                <LinkedIn />
-                LinkedIn
-              </Button>
-            </a>
-            <a
-              className="link github-link"
-              href="https://github.com/CameronMBrown/tic-react-toe"
+              <LinkedIn />
+              LinkedIn
+            </Button>
+            <Button
+              className="github-btn"
+              action={() =>
+                window.open(
+                  "https://github.com/CameronMBrown/tic-react-toe",
+                  "_blank"
+                )
+              }
             >
-              <Button className="github-btn">
-                <Github />
-                Github
-              </Button>
-            </a>
+              <Github />
+              Github
+            </Button>
           </div>
         </Modal>
       )}
