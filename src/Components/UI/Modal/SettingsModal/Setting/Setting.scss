@@ -8,6 +8,14 @@
   gap: 2rem;
   padding: 0 0 0.5rem 0;
 
+  &:has(.switch) {
+    padding-bottom: 0.1rem;
+
+    &:last-of-type {
+      padding-bottom: 0.5rem;
+    }
+  }
+
   input {
     text-align: center;
     width: 50px;
@@ -50,6 +58,8 @@
   --toggle-wider: 3em;
   --color-grey: #cccccc;
   --color-green: #42f445;
+  display: flex;
+  align-items: center;
 }
 
 .slider {
@@ -116,5 +126,9 @@
   input[type="number"] {
     color: $whiteText;
     background-color: $darkModal;
+  }
+
+  .slider {
+    background-color: #454545;
   }
 }
